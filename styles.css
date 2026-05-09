@@ -699,6 +699,11 @@ main > .section::-webkit-scrollbar {
   aspect-ratio: 16 / 9;
 }
 
+.project-awesome-geoai .project-static-preview,
+.project-awesome-geoai .project-static-preview figure {
+  aspect-ratio: 3 / 2;
+}
+
 .featured-project + .featured-project {
   margin-top: 0;
 }
