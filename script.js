@@ -3,7 +3,10 @@ const toggle = document.querySelector("[data-theme-toggle]");
 const root = document.documentElement;
 const storedTheme = localStorage.getItem("theme");
 const pullRefresh = document.querySelector("[data-pull-refresh]");
-const pullRefreshText = document.querySelector("[data-pull-refresh-text]");
+
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
 
 if (year) {
   year.textContent = new Date().getFullYear();
@@ -219,8 +222,11 @@ const pageTrack = document.querySelector("[data-page-track]");
 const linkedSections = sectionLinks
   .map((link) => document.querySelector(link.getAttribute("href")))
   .filter(Boolean);
+let currentSectionId = location.hash.slice(1) || "about";
 
 const setActiveSection = (id) => {
+  if (!id) return;
+  currentSectionId = id;
   sectionLinks.forEach((link) => {
     const isActive = link.getAttribute("href") === `#${id}`;
     link.classList.toggle("is-active", isActive);
@@ -230,6 +236,11 @@ const setActiveSection = (id) => {
       link.removeAttribute("aria-current");
     }
   });
+};
+
+const replaceSectionHash = (id) => {
+  if (!id || location.hash === `#${id}`) return;
+  history.replaceState(null, "", `#${id}`);
 };
 
 if ("IntersectionObserver" in window && linkedSections.length) {
@@ -251,8 +262,27 @@ const pageTargets = [document.querySelector(".hero"), ...document.querySelectorA
 const mobilePageQuery = window.matchMedia("(max-width: 780px)");
 let pageSwipeStart = null;
 let pageScrollFrame = null;
+let windowScrollFrame = null;
 let pullRefreshStart = null;
 const pullRefreshThreshold = 82;
+
+const getSectionById = (id) => pageTargets.find((section) => section.id === id) || null;
+
+const getHashSection = () => {
+  if (!location.hash) return null;
+
+  try {
+    return getSectionById(decodeURIComponent(location.hash.slice(1)));
+  } catch {
+    return null;
+  }
+};
+
+const syncSection = (section, updateHash = false) => {
+  if (!section?.id) return;
+  setActiveSection(section.id);
+  if (updateHash) replaceSectionHash(section.id);
+};
 
 const getCurrentPageIndex = () => {
   if (mobilePageQuery.matches && pageTrack) {
@@ -292,6 +322,10 @@ const scrollToPage = (section, behavior = "smooth") => {
   section.scrollIntoView({ behavior, block: "start" });
 };
 
+const syncCurrentPage = (updateHash = false) => {
+  syncSection(pageTargets[getCurrentPageIndex()], updateHash);
+};
+
 sectionLinks.forEach((link) => {
   link.addEventListener("click", (event) => {
     if (!mobilePageQuery.matches) return;
@@ -299,9 +333,8 @@ sectionLinks.forEach((link) => {
     if (!section) return;
 
     event.preventDefault();
-    setActiveSection(section.id);
+    syncSection(section, true);
     scrollToPage(section);
-    history.replaceState(null, "", `#${section.id}`);
   });
 });
 
@@ -313,8 +346,20 @@ pageTrack?.addEventListener(
 
     pageScrollFrame = requestAnimationFrame(() => {
       pageScrollFrame = null;
-      const section = pageTargets[getCurrentPageIndex()];
-      if (section?.id) setActiveSection(section.id);
+      syncCurrentPage(true);
+    });
+  },
+  { passive: true },
+);
+
+window.addEventListener(
+  "scroll",
+  () => {
+    if (mobilePageQuery.matches || windowScrollFrame) return;
+
+    windowScrollFrame = requestAnimationFrame(() => {
+      windowScrollFrame = null;
+      syncCurrentPage(true);
     });
   },
   { passive: true },
@@ -326,28 +371,25 @@ const isPullRefreshExcluded = (target) =>
   );
 
 const setPullRefreshProgress = (distance, isReady = false) => {
-  if (!pullRefresh || !pullRefreshText) return;
+  if (!pullRefresh) return;
   pullRefresh.classList.add("is-visible");
   pullRefresh.classList.toggle("is-ready", isReady);
   pullRefresh.style.setProperty("--pull-distance", `${distance}px`);
   pullRefresh.style.setProperty("--pull-rotation", `${Math.min(distance * 3, 180)}deg`);
-  pullRefreshText.textContent = isReady ? "Release to refresh" : "Pull to refresh";
 };
 
 const resetPullRefresh = () => {
-  if (!pullRefresh || !pullRefreshText) return;
+  if (!pullRefresh) return;
   pullRefresh.classList.remove("is-visible", "is-ready", "is-refreshing");
   pullRefresh.style.removeProperty("--pull-distance");
   pullRefresh.style.removeProperty("--pull-rotation");
-  pullRefreshText.textContent = "Pull to refresh";
 };
 
 const triggerPullRefresh = () => {
-  if (!pullRefresh || !pullRefreshText) return;
+  if (!pullRefresh) return;
   pullRefresh.classList.add("is-visible", "is-refreshing");
   pullRefresh.classList.remove("is-ready");
   pullRefresh.style.setProperty("--pull-distance", "86px");
-  pullRefreshText.textContent = "Refreshing";
   window.setTimeout(() => window.location.reload(), 220);
 };
 
@@ -474,19 +516,30 @@ document.addEventListener(
     const currentIndex = getCurrentPageIndex();
     const nextIndex = deltaX < 0 ? currentIndex + 1 : currentIndex - 1;
     const nextSection = pageTargets[Math.max(0, Math.min(pageTargets.length - 1, nextIndex))];
+    syncSection(nextSection, true);
     scrollToPage(nextSection);
   },
   { passive: false },
 );
 
 window.addEventListener("hashchange", () => {
-  if (!mobilePageQuery.matches || !location.hash) return;
-  scrollToPage(document.querySelector(location.hash));
+  const section = getHashSection();
+  if (!section) return;
+  syncSection(section);
+  if (mobilePageQuery.matches) scrollToPage(section);
 });
 
-if (location.hash) {
+const syncInitialPage = () => {
+  const section = getHashSection() || pageTargets[0];
+  if (!section) return;
+  syncSection(section, Boolean(location.hash));
+  if (mobilePageQuery.matches) scrollToPage(section, "auto");
+};
+
+requestAnimationFrame(syncInitialPage);
+window.addEventListener("pageshow", syncInitialPage);
+window.addEventListener("load", () => {
   requestAnimationFrame(() => {
-    if (!mobilePageQuery.matches) return;
-    scrollToPage(document.querySelector(location.hash), "auto");
+    syncInitialPage();
   });
-}
+});
