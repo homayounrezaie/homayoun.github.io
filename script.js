@@ -201,6 +201,7 @@ document.querySelectorAll("[data-slider]").forEach((slider) => {
 });
 
 const sectionLinks = Array.from(document.querySelectorAll("[data-section-link]"));
+const pageTrack = document.querySelector("[data-page-track]");
 const linkedSections = sectionLinks
   .map((link) => document.querySelector(link.getAttribute("href")))
   .filter(Boolean);
@@ -229,8 +230,19 @@ if ("IntersectionObserver" in window && linkedSections.length) {
 const pageTargets = [document.querySelector(".hero"), ...document.querySelectorAll("main > .section")].filter(Boolean);
 const mobilePageQuery = window.matchMedia("(max-width: 780px)");
 let pageSwipeStart = null;
+let pageScrollFrame = null;
 
 const getCurrentPageIndex = () => {
+  if (mobilePageQuery.matches && pageTrack) {
+    return pageTargets.reduce(
+      (closest, section, index) => {
+        const distance = Math.abs(section.offsetLeft - pageTrack.scrollLeft);
+        return distance < closest.distance ? { index, distance } : closest;
+      },
+      { index: 0, distance: Number.POSITIVE_INFINITY },
+    ).index;
+  }
+
   const viewportCenter = window.innerHeight / 2;
   return pageTargets.reduce(
     (closest, section, index) => {
@@ -241,6 +253,45 @@ const getCurrentPageIndex = () => {
     { index: 0, distance: Number.POSITIVE_INFINITY },
   ).index;
 };
+
+const scrollToPage = (section, behavior = "smooth") => {
+  if (!section) return;
+
+  if (mobilePageQuery.matches && pageTrack) {
+    pageTrack.scrollTo({ left: section.offsetLeft, behavior });
+    return;
+  }
+
+  section.scrollIntoView({ behavior, block: "start" });
+};
+
+sectionLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    if (!mobilePageQuery.matches) return;
+    const section = document.querySelector(link.getAttribute("href"));
+    if (!section) return;
+
+    event.preventDefault();
+    setActiveSection(section.id);
+    scrollToPage(section);
+    history.replaceState(null, "", `#${section.id}`);
+  });
+});
+
+pageTrack?.addEventListener(
+  "scroll",
+  () => {
+    if (momNote?.open) momNote.open = false;
+    if (!mobilePageQuery.matches || pageScrollFrame) return;
+
+    pageScrollFrame = requestAnimationFrame(() => {
+      pageScrollFrame = null;
+      const section = pageTargets[getCurrentPageIndex()];
+      if (section?.id) setActiveSection(section.id);
+    });
+  },
+  { passive: true },
+);
 
 const isPageSwipeExcluded = (target) =>
   target.closest(
@@ -255,7 +306,11 @@ document.addEventListener(
       return;
     }
 
-    pageSwipeStart = { x: event.clientX, y: event.clientY };
+    pageSwipeStart = {
+      x: event.clientX,
+      y: event.clientY,
+      scrollLeft: pageTrack?.scrollLeft ?? 0,
+    };
   },
   { passive: true },
 );
@@ -267,7 +322,10 @@ document.addEventListener(
 
     const deltaX = event.clientX - pageSwipeStart.x;
     const deltaY = event.clientY - pageSwipeStart.y;
+    const nativeScrollDelta = pageTrack ? Math.abs(pageTrack.scrollLeft - pageSwipeStart.scrollLeft) : 0;
     pageSwipeStart = null;
+
+    if (nativeScrollDelta > 24) return;
 
     const isHorizontalSwipe = Math.abs(deltaX) > 64 && Math.abs(deltaX) > Math.abs(deltaY) * 1.35;
     if (!isHorizontalSwipe) return;
@@ -277,7 +335,19 @@ document.addEventListener(
     const currentIndex = getCurrentPageIndex();
     const nextIndex = deltaX < 0 ? currentIndex + 1 : currentIndex - 1;
     const nextSection = pageTargets[Math.max(0, Math.min(pageTargets.length - 1, nextIndex))];
-    nextSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollToPage(nextSection);
   },
   { passive: false },
 );
+
+window.addEventListener("hashchange", () => {
+  if (!mobilePageQuery.matches || !location.hash) return;
+  scrollToPage(document.querySelector(location.hash));
+});
+
+if (location.hash) {
+  requestAnimationFrame(() => {
+    if (!mobilePageQuery.matches) return;
+    scrollToPage(document.querySelector(location.hash), "auto");
+  });
+}

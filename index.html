@@ -23,7 +23,8 @@
       </svg>
     </button>
 
-    <header class="hero" id="about">
+    <div class="page-track" data-page-track>
+      <header class="hero" id="about">
       <nav class="section-nav" aria-label="Portfolio sections">
         <a class="is-active" href="#about" data-section-link data-short="About">
           <span class="section-nav-icon">
@@ -141,7 +142,7 @@
           </nav>
         </div>
       </div>
-    </header>
+      </header>
 
     <main>
       <section class="section" id="projects" aria-labelledby="projects-title">
@@ -692,22 +693,6 @@
         </div>
       </section>
 
-      <section class="section band research-lens" id="research-lens" aria-labelledby="research-lens-title">
-        <h2 id="research-lens-title">Research Lens</h2>
-        <p class="thermal-note">
-          A lot of my research has been around thermal vision, especially
-          midwave and longwave infrared data from drones, airborne surveys, and
-          satellites. I built a reference list of satellites with thermal
-          sensors onboard, and one pattern became clear: longwave thermal
-          sensors still tend to have much coarser spatial resolution, while
-          some midwave systems can reach meter-scale detail from space. It
-          feels similar to computing, where CPUs and GPUs advanced very quickly
-          while batteries moved more slowly. So the question I keep coming back
-          to is: are we looking at an engineering problem, a physics limit, or
-          the place where both meet?
-        </p>
-      </section>
-
       <section class="section band" id="certifications" aria-labelledby="certifications-title">
         <h2 id="certifications-title">Certifications</h2>
         <div class="credential-grid">
@@ -796,6 +781,21 @@
             <p>Move models into usable systems with Python, PyTorch, NumPy, SciPy, scikit-learn, pandas, R, SQL, Git, Linux, Docker, AWS, S3, SageMaker, Hugging Face, data pipelines, APIs, model evaluation, cost-aware inference, UI/UX thinking, and production-minded delivery.</p>
           </article>
         </div>
+        <article class="research-lens" id="research-lens" aria-labelledby="research-lens-title">
+          <h3 id="research-lens-title">Research Lens</h3>
+          <p class="thermal-note">
+            A lot of my research has been around thermal vision, especially
+            midwave and longwave infrared data from drones, airborne surveys,
+            and satellites. I built a reference list of satellites with thermal
+            sensors onboard, and one pattern became clear: longwave thermal
+            sensors still tend to have much coarser spatial resolution, while
+            some midwave systems can reach meter-scale detail from space. It
+            feels similar to computing, where CPUs and GPUs advanced very
+            quickly while batteries moved more slowly. So the question I keep
+            coming back to is: are we looking at an engineering problem, a
+            physics limit, or the place where both meet?
+          </p>
+        </article>
       </section>
 
       <section class="section band" id="awards" aria-labelledby="awards-title">
@@ -837,6 +837,7 @@
       </section>
 
     </main>
+    </div>
 
     <footer class="footer">
       <p>&copy; <span data-year></span> Homayoun Rezaie. All views and opinions are my own.</p>

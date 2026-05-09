@@ -1161,6 +1161,9 @@ h4 {
 }
 
 .research-lens {
+  margin-top: 24px;
+  border: 1px solid var(--glass-line);
+  border-radius: 22px;
   background:
     radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--nav-active), transparent 84%), transparent 34%),
     radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--accent), transparent 88%), transparent 38%),
@@ -1168,6 +1171,12 @@ h4 {
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, #ffffff, transparent 65%),
     0 24px 72px color-mix(in srgb, var(--text), transparent 90%);
+  padding: 22px;
+}
+
+.research-lens h3 {
+  margin-bottom: 10px;
+  font-size: 1.06rem;
 }
 
 .education-list {
@@ -1360,10 +1369,11 @@ h4 {
 @media (max-width: 780px) {
   html {
     scroll-padding-top: 0;
-    scroll-snap-type: y mandatory;
   }
 
   body {
+    height: 100svh;
+    overflow: hidden;
     padding-bottom: 0;
     background-attachment: scroll;
   }
@@ -1373,7 +1383,26 @@ h4 {
     opacity: 0.5;
   }
 
+  .page-track {
+    display: flex;
+    height: 100svh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .page-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .page-track main {
+    display: contents;
+  }
+
   .hero {
+    flex: 0 0 100vw;
     height: 100svh;
     min-height: 100svh;
     overflow-y: auto;
@@ -1492,14 +1521,15 @@ h4 {
   }
 
   .section {
+    flex: 0 0 calc(100vw - 24px);
     height: 100svh;
-    width: calc(100% - 36px);
+    width: auto;
     overflow-y: auto;
     overscroll-behavior-y: contain;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     scrollbar-width: none;
-    margin-block: 0;
+    margin: 0 12px;
     padding: 38px 24px;
     padding-bottom: 104px;
     border-radius: 22px;
@@ -1722,11 +1752,13 @@ h4 {
   }
 
   .footer {
+    display: none;
     padding-inline: 22px;
   }
 
   .section {
-    width: calc(100% - 24px);
+    flex-basis: calc(100vw - 20px);
+    margin-inline: 10px;
     padding: 34px 20px 104px;
   }
 
