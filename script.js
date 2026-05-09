@@ -223,7 +223,7 @@ const sectionLinks = Array.from(document.querySelectorAll("[data-section-link]")
 const pageTrack = document.querySelector("[data-page-track]");
 const pageIndicator = document.querySelector("[data-page-indicator]");
 const pageEdgeButtons = Array.from(document.querySelectorAll("[data-page-edge]"));
-const mobilePageQuery = window.matchMedia("(max-width: 780px)");
+const pagedModeQuery = window.matchMedia("(min-width: 0px)");
 const phonePageQuery = window.matchMedia("(max-width: 767px)");
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const linkedSections = sectionLinks
@@ -379,7 +379,7 @@ const syncSection = (section, updateHash = false) => {
 };
 
 const getCurrentPageIndex = () => {
-  if (mobilePageQuery.matches && pageTrack) {
+  if (pagedModeQuery.matches && pageTrack) {
     return pageTargets.reduce(
       (closest, section, index) => {
         const distance = Math.abs(section.offsetLeft - pageTrack.scrollLeft);
@@ -433,7 +433,7 @@ const animatePageScroll = (left) => {
 const scrollToPage = (section, behavior = "smooth") => {
   if (!section) return;
 
-  if (mobilePageQuery.matches && pageTrack) {
+  if (pagedModeQuery.matches && pageTrack) {
     if (behavior === "auto" || behavior === "instant") {
       if (pageAnimationFrame) {
         cancelAnimationFrame(pageAnimationFrame);
@@ -460,7 +460,7 @@ const syncCurrentPage = (updateHash = false) => {
 };
 
 const goToPageByOffset = (offset) => {
-  if (!phonePageQuery.matches) return;
+  if (!pagedModeQuery.matches) return;
   const currentIndex = getCurrentPageIndex();
   const nextIndex = Math.max(0, Math.min(pageTargets.length - 1, currentIndex + offset));
   if (nextIndex === currentIndex) return;
@@ -474,7 +474,7 @@ buildPageIndicator();
 
 sectionLinks.forEach((link) => {
   link.addEventListener("click", (event) => {
-    if (!mobilePageQuery.matches) return;
+    if (!pagedModeQuery.matches) return;
     const section = document.querySelector(link.getAttribute("href"));
     if (!section) return;
 
@@ -494,7 +494,7 @@ pageTrack?.addEventListener(
   "scroll",
   () => {
     if (momNote?.open) momNote.open = false;
-    if (!mobilePageQuery.matches || pageScrollFrame) return;
+    if (!pagedModeQuery.matches || pageScrollFrame) return;
 
     pageScrollFrame = requestAnimationFrame(() => {
       pageScrollFrame = null;
@@ -507,7 +507,7 @@ pageTrack?.addEventListener(
 window.addEventListener(
   "scroll",
   () => {
-    if (mobilePageQuery.matches || windowScrollFrame) return;
+    if (pagedModeQuery.matches || windowScrollFrame) return;
 
     windowScrollFrame = requestAnimationFrame(() => {
       windowScrollFrame = null;
@@ -546,7 +546,7 @@ const triggerPullRefresh = () => {
 };
 
 const beginPullRefresh = (clientX, clientY, target) => {
-  if (!mobilePageQuery.matches || !pageTrack || !modal?.hidden || isPullRefreshExcluded(target)) {
+  if (!phonePageQuery.matches || !pageTrack || !modal?.hidden || isPullRefreshExcluded(target)) {
     pullRefreshStart = null;
     return;
   }
@@ -565,7 +565,7 @@ const beginPullRefresh = (clientX, clientY, target) => {
 };
 
 const updatePullRefresh = (clientX, clientY, event) => {
-  if (!pullRefreshStart || !mobilePageQuery.matches) return;
+  if (!pullRefreshStart || !phonePageQuery.matches) return;
 
   const deltaX = clientX - pullRefreshStart.x;
   const deltaY = clientY - pullRefreshStart.y;
@@ -634,7 +634,7 @@ const isPageSwipeExcluded = (target) =>
 document.addEventListener(
   "pointerdown",
   (event) => {
-    if (!mobilePageQuery.matches || isPageSwipeExcluded(event.target)) {
+    if (!pagedModeQuery.matches || isPageSwipeExcluded(event.target)) {
       pageSwipeStart = null;
       return;
     }
@@ -651,7 +651,7 @@ document.addEventListener(
 document.addEventListener(
   "pointerup",
   (event) => {
-    if (!pageSwipeStart || !mobilePageQuery.matches) return;
+    if (!pageSwipeStart || !pagedModeQuery.matches) return;
 
     const deltaX = event.clientX - pageSwipeStart.x;
     const deltaY = event.clientY - pageSwipeStart.y;
@@ -678,14 +678,14 @@ window.addEventListener("hashchange", () => {
   const section = getHashSection();
   if (!section) return;
   syncSection(section);
-  if (mobilePageQuery.matches) scrollToPage(section);
+  if (pagedModeQuery.matches) scrollToPage(section);
 });
 
 const syncInitialPage = () => {
   const section = getHashSection() || pageTargets[0];
   if (!section) return;
   syncSection(section, Boolean(location.hash));
-  if (mobilePageQuery.matches) scrollToPage(section, "auto");
+  if (pagedModeQuery.matches) scrollToPage(section, "auto");
 };
 
 requestAnimationFrame(syncInitialPage);

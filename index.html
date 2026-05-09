@@ -39,6 +39,7 @@
         <path d="M20 12a8 8 0 1 1-2.3-5.7" />
         <path d="M20 4v5h-5" />
       </svg>
+      <span data-pull-refresh-text>Pull to refresh</span>
     </div>
 
     <nav class="section-nav" aria-label="Portfolio sections">
@@ -66,12 +67,7 @@
         </span>
         <span>Education</span>
       </a>
-      <a href="#publications" data-section-link data-short="Papers">
-        <span class="section-nav-icon">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm2 4h8M8 12h8M8 16h5" /></svg>
-        </span>
-        <span>Publications</span>
-      </a>
+
       <a href="#certifications" data-section-link data-short="Certs">
         <span class="section-nav-icon">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v6a4 4 0 0 1-8 0V4Zm2 13-2 4 4-2 4 2-2-4" /></svg>
@@ -102,7 +98,7 @@
       <div class="hero-inner">
         <div class="photo-wrap">
           <div class="profile-frame">
-            <img class="profile-photo" src="images/profile.jpeg" alt="Homayoun Rezaie" />
+            <img class="profile-photo" src="images/profile.jpeg" alt="Homayoun Rezaie" fetchpriority="high" decoding="async" />
           </div>
           <details class="mom-note">
             <summary aria-label="Open conversation with my mom">
@@ -146,8 +142,7 @@
             Alongside GeoAI, which has been my education and technical path, I
             like working across the full product picture: finding gaps, shaping
             ideas, managing projects, thinking through UI/UX, and now exploring
-            the business side as well. The sky is the limit.
-          </p>
+            the business side as well.          </p>
           <nav class="social-links" aria-label="Social links">
             <a href="mailto:alirfabad@gmail.com" aria-label="Email">
               <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -172,8 +167,8 @@
             <a href="https://scholar.google.ca/citations?user=WPbLpxwAAAAJ&hl=en" target="_blank" rel="noreferrer" aria-label="Google Scholar">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 3 2 9l10 6 10-6-10-6Z" />
-                <path d="M6 12.5v4.5c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5" />
-                <path d="M2 9v6" />
+                <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 12.5v4.5c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5" />
+                <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M2 9v6" />
               </svg>
             </a>
           </nav>
@@ -353,7 +348,10 @@
                 portals, and clear reports that teams can act on.
               </p>
               <div class="project-actions">
-                <a href="https://www.thermolabs.io/" target="_blank" rel="noreferrer">Visit site</a>
+                <a class="action-primary" href="https://www.thermolabs.io/" target="_blank" rel="noreferrer">
+                  Visit site
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7M17 7v10"/></svg>
+                </a>
               </div>
             </div>
           </article>
@@ -410,7 +408,10 @@
                 and building performance analysis.
               </p>
               <div class="project-actions">
-                <a href="https://lnkd.in/g7ZiXqP8" target="_blank" rel="noreferrer">View online</a>
+                <a class="action-primary" href="https://lnkd.in/g7ZiXqP8" target="_blank" rel="noreferrer">
+                  View online
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7M17 7v10"/></svg>
+                </a>
               </div>
             </div>
           </article>
@@ -528,9 +529,18 @@
                 implementation details and usage examples.
               </p>
               <div class="project-actions">
-                <a href="https://github.com/homayounrezaie/geointerpo" target="_blank" rel="noreferrer">Repo</a>
-                <a href="https://lnkd.in/gr8SkCeD" target="_blank" rel="noreferrer">Docs</a>
-                <a href="https://lnkd.in/gDNA7z-C" target="_blank" rel="noreferrer">PyPI</a>
+                <a href="https://github.com/homayounrezaie/geointerpo" target="_blank" rel="noreferrer">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5a8.7 8.7 0 0 0-2.8 17c.4.1.5-.2.5-.4v-1.5c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.1-.9-1.1-.7-.5.1-.5.1-.5.8.1 1.2.9 1.2.9.7 1.2 1.9.8 2.3.6.1-.5.3-.8.5-1-1.8-.2-3.7-.9-3.7-4a3.1 3.1 0 0 1 .8-2.2c-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.3.8a8 8 0 0 1 4.2 0c1.6-1 2.3-.8 2.3-.8.5 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.2 0 3.1-1.9 3.8-3.7 4 .3.2.5.7.5 1.4v2.2c0 .2.1.5.6.4A8.7 8.7 0 0 0 12 3.5Z"/></svg>
+                  GitHub
+                </a>
+                <a href="https://lnkd.in/gr8SkCeD" target="_blank" rel="noreferrer">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                  Docs
+                </a>
+                <a href="https://lnkd.in/gDNA7z-C" target="_blank" rel="noreferrer">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/></svg>
+                  PyPI
+                </a>
               </div>
             </div>
           </article>
@@ -571,7 +581,10 @@
                 prototyping, or production geospatial AI systems.
               </p>
               <div class="project-actions">
-                <a href="https://github.com/homayounrezaie/geospatial-companies" target="_blank" rel="noreferrer">View GitHub</a>
+                <a class="action-primary" href="https://github.com/homayounrezaie/geospatial-companies" target="_blank" rel="noreferrer">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5a8.7 8.7 0 0 0-2.8 17c.4.1.5-.2.5-.4v-1.5c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.1-.9-1.1-.7-.5.1-.5.1-.5.8.1 1.2.9 1.2.9.7 1.2 1.9.8 2.3.6.1-.5.3-.8.5-1-1.8-.2-3.7-.9-3.7-4a3.1 3.1 0 0 1 .8-2.2c-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.3.8a8 8 0 0 1 4.2 0c1.6-1 2.3-.8 2.3-.8.5 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.2 0 3.1-1.9 3.8-3.7 4 .3.2.5.7.5 1.4v2.2c0 .2.1.5.6.4A8.7 8.7 0 0 0 12 3.5Z"/></svg>
+                  View on GitHub
+                </a>
               </div>
             </div>
           </article>
@@ -705,32 +718,6 @@
             physics limit, or the place where both meet?
           </p>
         </article>
-      </section>
-
-      <section class="section" id="publications" aria-labelledby="publications-title">
-        <h2 id="publications-title">Selected Publications</h2>
-        <div class="publication-list">
-          <article class="publication-item">
-            <h3>Vision-Language Models for Building Envelope Diagnosis from Thermal Imagery: Bridging Qualitative Interpretation and Physics-Based Heat Loss Modeling</h3>
-            <p>Rezaie, H., &amp; Hay, G.J.</p>
-          </article>
-          <article class="publication-item">
-            <h3>Predicting Residential Energy Consumption in Canadian Housing Using a Teacher–Student Machine Learning Framework</h3>
-            <p>Rezaie, H., &amp; Hay, G.J. — Knowledge distillation across 4M+ EnerGuide records; 5 ML architectures evaluated.</p>
-          </article>
-          <article class="publication-item">
-            <h3>Post-Disaster Recovery Monitoring with Google Earth Engine</h3>
-            <p>Ghaffarian, S., &amp; Rezaie, H. · <em>Applied Sciences</em> (2020) · 52 citations — Semantic segmentation and change-detection pipeline distinguishing physical structural change from acquisition noise and seasonal variation.</p>
-          </article>
-          <article class="publication-item">
-            <h3>ML-Based Prediction of Energy Loss Using Thermographic Features</h3>
-            <p>Rezaie, H.</p>
-          </article>
-          <article class="publication-item">
-            <h3>Algorithmic Optimization of Map Algebra Workflows in ArcPy and Rasterio: Improving Asymptotic Complexity and Runtime Performance</h3>
-            <p>Rezaie, H.</p>
-          </article>
-        </div>
       </section>
 
       <section class="section band" id="certifications" aria-labelledby="certifications-title">
