@@ -1399,7 +1399,8 @@ h4 {
     z-index: 20;
     display: flex;
     width: auto;
-    gap: 4px;
+    justify-content: space-between;
+    gap: 2px;
     margin: 0;
     overflow-x: auto;
     transform: none;
@@ -1408,7 +1409,7 @@ h4 {
     background: color-mix(in srgb, var(--glass-strong), transparent 4%);
     box-shadow: 0 18px 48px color-mix(in srgb, var(--text), transparent 84%);
     backdrop-filter: blur(20px) saturate(150%);
-    padding: 6px;
+    padding: 7px;
     scrollbar-width: none;
     scroll-snap-type: x proximity;
   }
@@ -1422,11 +1423,11 @@ h4 {
   }
 
   .section-nav a {
-    flex: 0 0 auto;
+    flex: 1 1 0;
+    min-width: 0;
     display: grid;
     justify-items: center;
     gap: 4px;
-    min-width: 46px;
     color: var(--muted);
     font-size: 0.59rem;
     line-height: 1.1;
@@ -1449,14 +1450,14 @@ h4 {
   }
 
   .section-nav-icon {
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
     box-shadow: none;
   }
 
   .section-nav svg {
-    width: 14px;
-    height: 14px;
+    width: 17px;
+    height: 17px;
   }
 
   .hero-inner {
@@ -1733,17 +1734,21 @@ h4 {
     left: 10px;
     right: 10px;
     bottom: 10px;
-    padding: 7px;
+    padding: 6px;
   }
 
   .section-nav a {
-    min-width: 44px;
     font-size: 0.56rem;
   }
 
   .section-nav-icon {
-    width: 28px;
-    height: 28px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .section-nav svg {
+    width: 16px;
+    height: 16px;
   }
 
   .profile-frame {
