@@ -8,6 +8,16 @@
       name="description"
       content="Personal website for Homayoun Rezaie: profile, experience, projects, notes, and contact links."
     />
+    <link rel="icon" type="image/jpeg" href="images/profile.jpeg" />
+    <link rel="apple-touch-icon" href="images/profile.jpeg" />
+    <meta property="og:title" content="Homayoun Rezaie | Agentic GeoAI" />
+    <meta
+      property="og:description"
+      content="Building Agentic GeoAI systems that connect geospatial reasoning, remote sensing, AI agents, foundation models, and decision-support tools."
+    />
+    <meta property="og:image" content="https://homayounrezaie.github.io/images/profile.jpeg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://homayounrezaie.github.io/images/profile.jpeg" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -55,6 +65,12 @@
         </span>
         <span>Education</span>
       </a>
+      <a href="#publications" data-section-link data-short="Papers">
+        <span class="section-nav-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm2 4h8M8 12h8M8 16h5" /></svg>
+        </span>
+        <span>Publications</span>
+      </a>
       <a href="#certifications" data-section-link data-short="Certs">
         <span class="section-nav-icon">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v6a4 4 0 0 1-8 0V4Zm2 13-2 4 4-2 4 2-2-4" /></svg>
@@ -65,7 +81,7 @@
         <span class="section-nav-icon">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M7 7v13m10-13v13M5 20h14M8 4h8" /></svg>
         </span>
-        <span>Build Stack</span>
+        <span>Stack</span>
       </a>
       <a href="#awards" data-section-link data-short="Awards">
         <span class="section-nav-icon">
@@ -147,6 +163,13 @@
                 <path d="M13.7 10.6 20.2 3h-1.5L13 9.6 8.5 3H3.3l6.8 9.9L3.3 21h1.5l6-7.1 4.8 7.1h5.2l-7.1-10.4Zm-2.1 2.5-.7-1L5.4 4.2h2.4l4.4 6.3.7 1 5.8 8.3h-2.4l-4.7-6.7Z" />
               </svg>
             </a>
+            <a href="https://scholar.google.ca/citations?user=WPbLpxwAAAAJ&hl=en" target="_blank" rel="noreferrer" aria-label="Google Scholar">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3 2 9l10 6 10-6-10-6Z" />
+                <path d="M6 12.5v4.5c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5" />
+                <path d="M2 9v6" />
+              </svg>
+            </a>
           </nav>
         </div>
       </div>
@@ -156,6 +179,179 @@
       <section class="section" id="projects" aria-labelledby="projects-title">
         <h2 id="projects-title">5 Recent Projects</h2>
         <div class="project-showcase">
+          <article class="featured-project project-brooksie">
+            <div class="project-slider" data-slider aria-label="brooksie.ai interface slideshow">
+              <div class="slider-track">
+                <figure class="is-active" data-slide>
+                  <button
+                    class="media-button"
+                    type="button"
+                    data-modal-image="projects/Brooksie/brooksie.png"
+                    data-modal-caption="brooksie.ai interface overview"
+                    data-modal-group="brooksie"
+                    aria-label="Open brooksie.ai interface overview"
+                  >
+                    <img src="projects/Brooksie/brooksie.png" alt="brooksie.ai interface overview" />
+                  </button>
+                </figure>
+                <figure data-slide>
+                  <button
+                    class="media-button"
+                    type="button"
+                    data-modal-image="projects/Brooksie/Screenshot%202026-05-08%20at%2010.10.38.png"
+                    data-modal-caption="brooksie.ai workflow screenshot"
+                    data-modal-group="brooksie"
+                    aria-label="Open brooksie.ai workflow screenshot"
+                  >
+                    <img src="projects/Brooksie/Screenshot%202026-05-08%20at%2010.10.38.png" alt="brooksie.ai workflow screenshot" />
+                  </button>
+                </figure>
+                <figure data-slide>
+                  <button
+                    class="media-button"
+                    type="button"
+                    data-modal-image="projects/Brooksie/Screenshot%202026-05-08%20at%2010.24.16.png"
+                    data-modal-caption="brooksie.ai analysis screenshot"
+                    data-modal-group="brooksie"
+                    aria-label="Open brooksie.ai analysis screenshot"
+                  >
+                    <img src="projects/Brooksie/Screenshot%202026-05-08%20at%2010.24.16.png" alt="brooksie.ai analysis screenshot" />
+                  </button>
+                </figure>
+                <figure data-slide>
+                  <button
+                    class="media-button"
+                    type="button"
+                    data-modal-image="projects/Brooksie/Screenshot%202026-05-08%20at%2010.46.32.png"
+                    data-modal-caption="brooksie.ai map screenshot"
+                    data-modal-group="brooksie"
+                    aria-label="Open brooksie.ai map screenshot"
+                  >
+                    <img src="projects/Brooksie/Screenshot%202026-05-08%20at%2010.46.32.png" alt="brooksie.ai map screenshot" />
+                  </button>
+                </figure>
+              </div>
+              <div class="slider-controls" aria-label="Slideshow controls">
+                <button type="button" data-slider-prev aria-label="Previous brooksie.ai preview">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 5 8.5 12l7 7" /></svg>
+                </button>
+                <div class="slider-dots" aria-label="Slide position">
+                  <button class="is-active" type="button" data-slide-dot="0" aria-label="Show brooksie.ai overview"></button>
+                  <button type="button" data-slide-dot="1" aria-label="Show brooksie.ai workflow"></button>
+                  <button type="button" data-slide-dot="2" aria-label="Show brooksie.ai analysis"></button>
+                  <button type="button" data-slide-dot="3" aria-label="Show brooksie.ai map"></button>
+                </div>
+                <button type="button" data-slider-next aria-label="Next brooksie.ai preview">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 5 7 7-7 7" /></svg>
+                </button>
+              </div>
+            </div>
+            <div class="project-copy">
+              <div class="project-meta">
+                <span>01</span>
+                <span>Agentic GeoAI Interface</span>
+              </div>
+              <h3>brooksie.ai</h3>
+              <p class="project-status">Not launched yet - currently figuring out the business model.</p>
+              <p>
+                Talk to Earth. An agentic interface where natural-language
+                queries are routed by an orchestration layer to specialized
+                tools - pulling live data from OpenStreetMap, Weather APIs,
+                Google Earth Engine, GBIF, and other open geospatial sources -
+                then processing it on the backend with GDAL, Rasterio, GeoPandas,
+                and Shapely to answer in spatial context.
+              </p>
+              <p>
+                The agent planner decomposes each request, calls the right
+                data sources and processing tools in sequence, and returns
+                annotated evidence directly on the map - no manual GIS work
+                required.
+              </p>
+            </div>
+          </article>
+
+          <article class="featured-project project-thermolabs">
+            <div class="project-slider" data-slider aria-label="ThermoLabs project slideshow">
+              <div class="slider-track">
+                <figure class="is-active" data-slide>
+                  <button
+                    class="media-button"
+                    type="button"
+                    data-modal-image="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.53.18.png"
+                    data-modal-caption="ThermoLabs landing page"
+                    data-modal-group="thermolabs"
+                    aria-label="Open ThermoLabs landing page preview"
+                  >
+                    <img src="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.53.18.png" alt="ThermoLabs landing page preview" />
+                  </button>
+                </figure>
+                <figure data-slide>
+                  <button
+                    class="media-button"
+                    type="button"
+                    data-modal-image="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.53.57.png"
+                    data-modal-caption="ThermoLabs thermal analytics workflow"
+                    data-modal-group="thermolabs"
+                    aria-label="Open ThermoLabs thermal analytics preview"
+                  >
+                    <img src="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.53.57.png" alt="ThermoLabs thermal analytics workflow preview" />
+                  </button>
+                </figure>
+                <figure data-slide>
+                  <button
+                    class="media-button"
+                    type="button"
+                    data-modal-image="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.54.33.png"
+                    data-modal-caption="ThermoLabs reporting and decision workflow"
+                    data-modal-group="thermolabs"
+                    aria-label="Open ThermoLabs reporting preview"
+                  >
+                    <img src="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.54.33.png" alt="ThermoLabs reporting and decision workflow preview" />
+                  </button>
+                </figure>
+              </div>
+              <div class="slider-controls" aria-label="Slideshow controls">
+                <button type="button" data-slider-prev aria-label="Previous ThermoLabs preview">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 5 8.5 12l7 7" /></svg>
+                </button>
+                <div class="slider-dots" aria-label="Slide position">
+                  <button class="is-active" type="button" data-slide-dot="0" aria-label="Show ThermoLabs landing page"></button>
+                  <button type="button" data-slide-dot="1" aria-label="Show ThermoLabs analytics"></button>
+                  <button type="button" data-slide-dot="2" aria-label="Show ThermoLabs reporting"></button>
+                </div>
+                <button type="button" data-slider-next aria-label="Next ThermoLabs preview">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 5 7 7-7 7" /></svg>
+                </button>
+              </div>
+            </div>
+            <div class="project-copy">
+              <div class="project-meta">
+                <span>02</span>
+                <span>Thermography + AI</span>
+              </div>
+              <h3>ThermoLabs.io</h3>
+              <p>
+                ThermoLabs.io is focused on turning thermal imagery into
+                decision-ready intelligence. The project combines drone
+                thermography with physics-aware machine learning,
+                radiometric calibration, anomaly detection, and reporting
+                workflows for real operational decisions.
+              </p>
+              <p>
+                The service direction includes drone data collection for
+                methane emissions monitoring in oil and gas and landfill
+                environments, plus thermal inspections for solar, buildings,
+                powerlines, wind assets, aviation, and infrastructure. The goal
+                is to move from raw thermal captures to calibrated orthomosaics,
+                confidence-scored findings, zone-level statistics, interactive
+                portals, and clear reports that teams can act on.
+              </p>
+              <div class="project-actions">
+                <a href="https://www.thermolabs.io/" target="_blank" rel="noreferrer">Visit site</a>
+              </div>
+            </div>
+          </article>
+
           <article class="featured-project project-floor2bim">
             <div class="project-visual" aria-label="Floor2BIM input and output preview">
               <figure>
@@ -333,195 +529,20 @@
             </div>
           </article>
 
-          <article class="featured-project project-brooksie">
-            <div class="project-slider" data-slider aria-label="brooksie.ai interface slideshow">
-              <div class="slider-track">
-                <figure class="is-active" data-slide>
-                  <button
-                    class="media-button"
-                    type="button"
-                    data-modal-image="projects/Brooksie/brooksie.png"
-                    data-modal-caption="brooksie.ai interface overview"
-                    data-modal-group="brooksie"
-                    aria-label="Open brooksie.ai interface overview"
-                  >
-                    <img src="projects/Brooksie/brooksie.png" alt="brooksie.ai interface overview" />
-                  </button>
-                </figure>
-                <figure data-slide>
-                  <button
-                    class="media-button"
-                    type="button"
-                    data-modal-image="projects/Brooksie/Screenshot%202026-05-08%20at%2010.10.38.png"
-                    data-modal-caption="brooksie.ai workflow screenshot"
-                    data-modal-group="brooksie"
-                    aria-label="Open brooksie.ai workflow screenshot"
-                  >
-                    <img src="projects/Brooksie/Screenshot%202026-05-08%20at%2010.10.38.png" alt="brooksie.ai workflow screenshot" />
-                  </button>
-                </figure>
-                <figure data-slide>
-                  <button
-                    class="media-button"
-                    type="button"
-                    data-modal-image="projects/Brooksie/Screenshot%202026-05-08%20at%2010.24.16.png"
-                    data-modal-caption="brooksie.ai analysis screenshot"
-                    data-modal-group="brooksie"
-                    aria-label="Open brooksie.ai analysis screenshot"
-                  >
-                    <img src="projects/Brooksie/Screenshot%202026-05-08%20at%2010.24.16.png" alt="brooksie.ai analysis screenshot" />
-                  </button>
-                </figure>
-                <figure data-slide>
-                  <button
-                    class="media-button"
-                    type="button"
-                    data-modal-image="projects/Brooksie/Screenshot%202026-05-08%20at%2010.46.32.png"
-                    data-modal-caption="brooksie.ai map screenshot"
-                    data-modal-group="brooksie"
-                    aria-label="Open brooksie.ai map screenshot"
-                  >
-                    <img src="projects/Brooksie/Screenshot%202026-05-08%20at%2010.46.32.png" alt="brooksie.ai map screenshot" />
-                  </button>
-                </figure>
-              </div>
-              <div class="slider-controls" aria-label="Slideshow controls">
-                <button type="button" data-slider-prev aria-label="Previous brooksie.ai preview">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 5 8.5 12l7 7" /></svg>
-                </button>
-                <div class="slider-dots" aria-label="Slide position">
-                  <button class="is-active" type="button" data-slide-dot="0" aria-label="Show brooksie.ai overview"></button>
-                  <button type="button" data-slide-dot="1" aria-label="Show brooksie.ai workflow"></button>
-                  <button type="button" data-slide-dot="2" aria-label="Show brooksie.ai analysis"></button>
-                  <button type="button" data-slide-dot="3" aria-label="Show brooksie.ai map"></button>
-                </div>
-                <button type="button" data-slider-next aria-label="Next brooksie.ai preview">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 5 7 7-7 7" /></svg>
-                </button>
-              </div>
-            </div>
-            <div class="project-copy">
-              <div class="project-meta">
-                <span>01</span>
-                <span>Agentic GeoAI Interface</span>
-              </div>
-              <h3>brooksie.ai</h3>
-              <p class="project-status">Not launched yet - currently figuring out the business model.</p>
-              <p>
-                Talk to Earth. An agentic interface where natural-language
-                queries are routed by an orchestration layer to specialized
-                tools - pulling live data from OpenStreetMap, Weather APIs,
-                Google Earth Engine, GBIF, and other open geospatial sources -
-                then processing it on the backend with GDAL, Rasterio, GeoPandas,
-                and Shapely to answer in spatial context.
-              </p>
-              <p>
-                The agent planner decomposes each request, calls the right
-                data sources and processing tools in sequence, and returns
-                annotated evidence directly on the map - no manual GIS work
-                required.
-              </p>
-            </div>
-          </article>
-
-          <article class="featured-project project-thermolabs">
-            <div class="project-slider" data-slider aria-label="ThermoLabs project slideshow">
-              <div class="slider-track">
-                <figure class="is-active" data-slide>
-                  <button
-                    class="media-button"
-                    type="button"
-                    data-modal-image="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.53.18.png"
-                    data-modal-caption="ThermoLabs landing page"
-                    data-modal-group="thermolabs"
-                    aria-label="Open ThermoLabs landing page preview"
-                  >
-                    <img src="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.53.18.png" alt="ThermoLabs landing page preview" />
-                  </button>
-                </figure>
-                <figure data-slide>
-                  <button
-                    class="media-button"
-                    type="button"
-                    data-modal-image="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.53.57.png"
-                    data-modal-caption="ThermoLabs thermal analytics workflow"
-                    data-modal-group="thermolabs"
-                    aria-label="Open ThermoLabs thermal analytics preview"
-                  >
-                    <img src="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.53.57.png" alt="ThermoLabs thermal analytics workflow preview" />
-                  </button>
-                </figure>
-                <figure data-slide>
-                  <button
-                    class="media-button"
-                    type="button"
-                    data-modal-image="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.54.33.png"
-                    data-modal-caption="ThermoLabs reporting and decision workflow"
-                    data-modal-group="thermolabs"
-                    aria-label="Open ThermoLabs reporting preview"
-                  >
-                    <img src="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.54.33.png" alt="ThermoLabs reporting and decision workflow preview" />
-                  </button>
-                </figure>
-              </div>
-              <div class="slider-controls" aria-label="Slideshow controls">
-                <button type="button" data-slider-prev aria-label="Previous ThermoLabs preview">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 5 8.5 12l7 7" /></svg>
-                </button>
-                <div class="slider-dots" aria-label="Slide position">
-                  <button class="is-active" type="button" data-slide-dot="0" aria-label="Show ThermoLabs landing page"></button>
-                  <button type="button" data-slide-dot="1" aria-label="Show ThermoLabs analytics"></button>
-                  <button type="button" data-slide-dot="2" aria-label="Show ThermoLabs reporting"></button>
-                </div>
-                <button type="button" data-slider-next aria-label="Next ThermoLabs preview">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 5 7 7-7 7" /></svg>
-                </button>
-              </div>
-            </div>
-            <div class="project-copy">
-              <div class="project-meta">
-                <span>02</span>
-                <span>Thermography + AI</span>
-              </div>
-              <h3>ThermoLabs.io</h3>
-              <p>
-                ThermoLabs.io is focused on turning thermal imagery into
-                decision-ready intelligence. The project combines drone
-                thermography with physics-aware machine learning,
-                radiometric calibration, anomaly detection, and reporting
-                workflows for real operational decisions.
-              </p>
-              <p>
-                The service direction includes drone data collection for
-                methane emissions monitoring in oil and gas and landfill
-                environments, plus thermal inspections for solar, buildings,
-                powerlines, wind assets, aviation, and infrastructure. The goal
-                is to move from raw thermal captures to calibrated orthomosaics,
-                confidence-scored findings, zone-level statistics, interactive
-                portals, and clear reports that teams can act on.
-              </p>
-              <div class="project-actions">
-                <a href="https://www.thermolabs.io/" target="_blank" rel="noreferrer">Visit site</a>
-              </div>
-            </div>
-          </article>
-
           <article class="featured-project project-awesome-geoai">
-            <div class="project-slider" data-slider aria-label="awesome-geoai project preview">
-              <div class="slider-track">
-                <figure class="is-active" data-slide>
-                  <button
-                    class="media-button"
-                    type="button"
-                    data-modal-image="projects/awesome-geoai/Screenshot%202026-05-08%20at%2019.01.37.png"
-                    data-modal-caption="awesome-geoai reference preview"
-                    data-modal-group="awesome-geoai"
-                    aria-label="Open awesome-geoai preview"
-                  >
-                    <img src="projects/awesome-geoai/Screenshot%202026-05-08%20at%2019.01.37.png" alt="awesome-geoai reference preview" />
-                  </button>
-                </figure>
-              </div>
+            <div class="project-static-preview" aria-label="awesome-geoai project preview">
+              <figure>
+                <button
+                  class="media-button"
+                  type="button"
+                  data-modal-image="projects/awesome-geoai/Screenshot%202026-05-08%20at%2019.01.37.png"
+                  data-modal-caption="awesome-geoai reference preview"
+                  data-modal-group="awesome-geoai"
+                  aria-label="Open awesome-geoai preview"
+                >
+                  <img src="projects/awesome-geoai/Screenshot%202026-05-08%20at%2019.01.37.png" alt="awesome-geoai reference preview" />
+                </button>
+              </figure>
             </div>
             <div class="project-copy">
               <div class="project-meta">
@@ -661,6 +682,32 @@
             </div>
             <span>2011 - 2015</span>
             <p>Design, landscape systems, and spatial thinking.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="publications" aria-labelledby="publications-title">
+        <h2 id="publications-title">Selected Publications</h2>
+        <div class="publication-list">
+          <article class="publication-item">
+            <h3>Vision-Language Models for Building Envelope Diagnosis from Thermal Imagery: Bridging Qualitative Interpretation and Physics-Based Heat Loss Modeling</h3>
+            <p>Rezaie, H., &amp; Hay, G.J.</p>
+          </article>
+          <article class="publication-item">
+            <h3>Predicting Residential Energy Consumption in Canadian Housing Using a Teacher–Student Machine Learning Framework</h3>
+            <p>Rezaie, H., &amp; Hay, G.J. — Knowledge distillation across 4M+ EnerGuide records; 5 ML architectures evaluated.</p>
+          </article>
+          <article class="publication-item">
+            <h3>Post-Disaster Recovery Monitoring with Google Earth Engine</h3>
+            <p>Ghaffarian, S., &amp; Rezaie, H. · <em>Applied Sciences</em> (2020) · 52 citations — Semantic segmentation and change-detection pipeline distinguishing physical structural change from acquisition noise and seasonal variation.</p>
+          </article>
+          <article class="publication-item">
+            <h3>ML-Based Prediction of Energy Loss Using Thermographic Features</h3>
+            <p>Rezaie, H.</p>
+          </article>
+          <article class="publication-item">
+            <h3>Algorithmic Optimization of Map Algebra Workflows in ArcPy and Rasterio: Improving Asymptotic Complexity and Runtime Performance</h3>
+            <p>Rezaie, H.</p>
           </article>
         </div>
       </section>
@@ -812,6 +859,12 @@
     </div>
 
     <footer class="footer">
+      <p class="footer-cta">
+        Want to connect?
+        <a href="mailto:alirfabad@gmail.com">Email</a>
+        <span aria-hidden="true">/</span>
+        <a href="https://www.linkedin.com/in/homayounrezaie/" target="_blank" rel="noreferrer">LinkedIn</a>
+      </p>
       <p>&copy; <span data-year></span> Homayoun Rezaie. All views and opinions are my own.</p>
     </footer>
 

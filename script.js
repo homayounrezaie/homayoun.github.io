@@ -120,6 +120,7 @@ const setModalImage = (button) => {
   modalImage.src = src;
   modalImage.alt = caption;
   modal.hidden = false;
+  modal.classList.toggle("has-single-image", modalGroup.length <= 1);
   document.body.classList.add("has-open-modal");
 };
 
@@ -129,6 +130,7 @@ const closeModal = () => {
   modal.hidden = true;
   modalImage.removeAttribute("src");
   modalImage.alt = "";
+  modal.classList.remove("has-single-image");
   document.body.classList.remove("has-open-modal");
   if (wasOpen) lastModalTrigger?.focus({ preventScroll: true });
 };
