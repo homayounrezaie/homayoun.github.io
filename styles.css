@@ -317,6 +317,10 @@ summary {
   font-variant-numeric: tabular-nums;
 }
 
+.section-nav-dot {
+  display: none;
+}
+
 .section-nav a > span:last-child {
   padding: 5px 0;
   opacity: 0.82;
@@ -1843,6 +1847,25 @@ main > .section::-webkit-scrollbar {
     display: none;
   }
 
+  .section-nav-icon {
+    display: none;
+  }
+
+  .section-nav-dot {
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--text), transparent 70%);
+    transition: background 220ms ease, transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), width 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .section-nav a.is-active .section-nav-dot {
+    background: #f97316;
+    transform: scale(1.5);
+    box-shadow: 0 0 8px color-mix(in srgb, #f97316, transparent 40%);
+  }
+
   .section-nav a::after {
     display: none;
   }
@@ -1851,26 +1874,8 @@ main > .section::-webkit-scrollbar {
     color: var(--nav-active);
   }
 
-  .section-nav a.is-active .section-nav-icon {
-    width: 36px;
-    height: 36px;
-    background: none;
-    border: none;
-    box-shadow: none;
-    transform: scale(1.22);
-  }
-
-  .section-nav a.is-active svg {
-    width: 22px;
-    height: 22px;
-  }
-
   .section-nav-icon {
-    width: 36px;
-    height: 36px;
-    background: none;
-    border: none;
-    box-shadow: none;
+    display: none;
     transform: scale(1);
     transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), color 100ms ease;
     will-change: transform;
