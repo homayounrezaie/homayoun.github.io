@@ -2225,16 +2225,14 @@ main > .section::-webkit-scrollbar {
     bottom: 0;
     left: 0;
     z-index: 26;
-    height: calc(72px + env(safe-area-inset-bottom));
     align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid var(--glass-line);
-    border-bottom: 0;
-    border-radius: 24px 24px 0 0;
-    background: color-mix(in srgb, var(--glass-strong), transparent 4%);
-    box-shadow: 0 -18px 48px color-mix(in srgb, var(--text), transparent 88%);
-    backdrop-filter: blur(20px) saturate(150%);
-    padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+    justify-content: space-around;
+    border: none;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    padding: 6px 4px max(14px, env(safe-area-inset-bottom));
     transform: none;
   }
 
