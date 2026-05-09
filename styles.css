@@ -2252,8 +2252,9 @@ main > .section::-webkit-scrollbar {
   }
 
   .section-nav {
-    --dot-size: 7px;
-    --active-dot-size: 21px;
+    --dot-size: 8px;
+    --active-dot-size: 30px;
+    --active-inner-size: 10px;
     display: flex;
     top: auto;
     right: auto;
@@ -2283,7 +2284,7 @@ main > .section::-webkit-scrollbar {
     width: auto;
     height: 1px;
     border-left: 0;
-    border-top: 1px dashed color-mix(in srgb, var(--text), transparent 72%);
+    border-top: 1px dashed color-mix(in srgb, var(--nav-active), transparent 54%);
     transform: translateY(-50%);
   }
 
@@ -2296,16 +2297,17 @@ main > .section::-webkit-scrollbar {
     justify-content: center;
     padding: 0;
     font-size: 0;
-    color: color-mix(in srgb, var(--text), transparent 46%);
+    color: var(--nav-active);
   }
 
   .section-nav-icon {
+    position: relative;
     width: var(--dot-size);
     height: var(--dot-size);
     border: 0;
     border-radius: 999px;
-    background: color-mix(in srgb, var(--text), transparent 40%);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--bg), transparent 12%);
+    background: var(--nav-active);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--bg), transparent 10%);
     backdrop-filter: none;
     transition:
       width 180ms ease,
@@ -2315,19 +2317,36 @@ main > .section::-webkit-scrollbar {
       transform 180ms ease;
   }
 
+  .section-nav-icon::after {
+    content: "";
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: var(--active-inner-size);
+    height: var(--active-inner-size);
+    border-radius: 999px;
+    background: var(--nav-active);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
   .section-nav svg {
     display: none;
   }
 
-  .section-nav a:hover .section-nav-icon,
   .section-nav a.is-active .section-nav-icon {
     width: var(--active-dot-size);
     height: var(--active-dot-size);
-    background: var(--nav-active);
+    background: color-mix(in srgb, var(--nav-active), transparent 76%);
     box-shadow:
-      0 0 0 4px color-mix(in srgb, var(--bg), transparent 8%),
-      0 10px 26px color-mix(in srgb, var(--nav-active), transparent 62%);
+      0 0 0 3px color-mix(in srgb, var(--bg), transparent 10%),
+      0 10px 24px color-mix(in srgb, var(--nav-active), transparent 68%);
     transform: none;
+  }
+
+  .section-nav a.is-active .section-nav-icon::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
 
   .section-nav a:active .section-nav-icon {
