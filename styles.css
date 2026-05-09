@@ -2380,6 +2380,7 @@ main > .section::-webkit-scrollbar {
     color: var(--nav-active);
     padding: 0;
     cursor: pointer;
+    pointer-events: none;
   }
 
   .page-edge-prev {
@@ -2453,6 +2454,13 @@ main > .section::-webkit-scrollbar {
   .slider-track img,
   .project-static-preview img {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 1023px), (pointer: coarse) {
+  .page-track {
+    overflow-x: hidden;
+    touch-action: pan-y;
   }
 }
 

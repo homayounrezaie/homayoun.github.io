@@ -228,6 +228,7 @@ const pageTrack = document.querySelector("[data-page-track]");
 const pageEdgeButtons = Array.from(document.querySelectorAll("[data-page-edge]"));
 const pagedModeQuery = window.matchMedia("(min-width: 0px)");
 const phonePageQuery = window.matchMedia("(max-width: 767px)");
+const touchPageQuery = window.matchMedia("(max-width: 1023px), (pointer: coarse)");
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const linkedSections = sectionLinks
   .map((link) => document.querySelector(link.getAttribute("href")))
@@ -369,12 +370,15 @@ const animatePageScroll = (left) => {
   if (pageAnimationFrame) {
     cancelAnimationFrame(pageAnimationFrame);
     pageAnimationFrame = null;
+    pageTrack.style.scrollSnapType = "";
   }
 
   const start = pageTrack.scrollLeft;
   const distance = left - start;
-  const duration = 250;
+  const duration = 360;
   const startedAt = performance.now();
+  const previousSnapType = pageTrack.style.scrollSnapType;
+  pageTrack.style.scrollSnapType = "none";
 
   const step = (time) => {
     const progress = Math.min((time - startedAt) / duration, 1);
@@ -387,6 +391,7 @@ const animatePageScroll = (left) => {
     }
 
     pageTrack.scrollLeft = left;
+    pageTrack.style.scrollSnapType = previousSnapType;
     pageAnimationFrame = null;
   };
 
@@ -401,12 +406,13 @@ const scrollToPage = (section, behavior = "smooth") => {
       if (pageAnimationFrame) {
         cancelAnimationFrame(pageAnimationFrame);
         pageAnimationFrame = null;
+        pageTrack.style.scrollSnapType = "";
       }
       pageTrack.scrollLeft = section.offsetLeft;
       return;
     }
 
-    if (phonePageQuery.matches && !reducedMotionQuery.matches) {
+    if (touchPageQuery.matches && !reducedMotionQuery.matches) {
       animatePageScroll(section.offsetLeft);
       return;
     }
@@ -606,34 +612,49 @@ const beginPageSwipe = (clientX, clientY, target) => {
   pageSwipeStart = {
     x: clientX,
     y: clientY,
+    index: getCurrentPageIndex(),
+    axis: null,
     scrollLeft: pageTrack.scrollLeft,
   };
   pageSwipeLast = { x: clientX, y: clientY };
 };
 
-const updatePageSwipe = (clientX, clientY) => {
+const updatePageSwipe = (clientX, clientY, event) => {
   if (!pageSwipeStart) return;
+
   pageSwipeLast = { x: clientX, y: clientY };
+
+  const deltaX = clientX - pageSwipeStart.x;
+  const deltaY = clientY - pageSwipeStart.y;
+
+  if (!pageSwipeStart.axis && (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10)) {
+    pageSwipeStart.axis = Math.abs(deltaX) > Math.abs(deltaY) * 1.15 ? "x" : "y";
+  }
+
+  if (pageSwipeStart.axis === "x" && event?.cancelable) {
+    event.preventDefault();
+  }
 };
 
 const finishPageSwipe = (clientX, clientY, event) => {
   if (!pageSwipeStart || !pagedModeQuery.matches) return;
 
+  const startIndex = pageSwipeStart.index;
+  const axis = pageSwipeStart.axis;
   const deltaX = clientX - pageSwipeStart.x;
   const deltaY = clientY - pageSwipeStart.y;
   const nativeScrollDelta = pageTrack ? Math.abs(pageTrack.scrollLeft - pageSwipeStart.scrollLeft) : 0;
   pageSwipeStart = null;
   pageSwipeLast = null;
 
-  if (nativeScrollDelta > 24) return;
+  if (nativeScrollDelta > 24 && axis !== "x") return;
 
   const isHorizontalSwipe = Math.abs(deltaX) > 64 && Math.abs(deltaX) > Math.abs(deltaY) * 1.35;
   if (!isHorizontalSwipe) return;
 
   if (event.cancelable) event.preventDefault();
 
-  const currentIndex = getCurrentPageIndex();
-  const nextIndex = deltaX < 0 ? currentIndex + 1 : currentIndex - 1;
+  const nextIndex = deltaX < 0 ? startIndex + 1 : startIndex - 1;
   const nextSection = pageTargets[Math.max(0, Math.min(pageTargets.length - 1, nextIndex))];
   syncSection(nextSection, true);
   scrollToPage(nextSection);
@@ -686,9 +707,9 @@ document.addEventListener(
   (event) => {
     if (event.touches.length !== 1) return;
     const touch = event.touches[0];
-    updatePageSwipe(touch.clientX, touch.clientY);
+    updatePageSwipe(touch.clientX, touch.clientY, event);
   },
-  { passive: true },
+  { passive: false },
 );
 
 document.addEventListener(
