@@ -2252,42 +2252,86 @@ main > .section::-webkit-scrollbar {
   }
 
   .section-nav {
+    --dot-size: 7px;
+    --active-dot-size: 21px;
     display: flex;
     top: auto;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    right: auto;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    left: 50%;
     z-index: 26;
-    height: calc(72px + env(safe-area-inset-bottom));
+    width: min(calc(100vw - 32px), 340px);
+    height: 44px;
     align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid var(--glass-line);
-    border-bottom: 0;
-    border-radius: 24px 24px 0 0;
-    background: color-mix(in srgb, var(--glass-strong), transparent 4%);
-    box-shadow: 0 -18px 48px color-mix(in srgb, var(--text), transparent 88%);
-    backdrop-filter: blur(20px) saturate(150%);
-    padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
-    transform: none;
+    justify-content: center;
+    gap: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    padding: 0;
+    transform: translateX(-50%);
+  }
+
+  .section-nav::before {
+    display: block;
+    left: 22px;
+    right: 22px;
+    top: 50%;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+    border-left: 0;
+    border-top: 1px dashed color-mix(in srgb, var(--text), transparent 72%);
+    transform: translateY(-50%);
   }
 
   .section-nav a {
-    flex: 1 1 0;
-    min-width: 0;
-    min-height: 54px;
+    z-index: 1;
+    flex: 0 0 44px;
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
     justify-content: center;
     padding: 0;
     font-size: 0;
+    color: color-mix(in srgb, var(--text), transparent 46%);
   }
 
   .section-nav-icon {
-    width: 28px;
-    height: 28px;
+    width: var(--dot-size);
+    height: var(--dot-size);
+    border: 0;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--text), transparent 40%);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--bg), transparent 12%);
+    backdrop-filter: none;
+    transition:
+      width 180ms ease,
+      height 180ms ease,
+      background 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms ease;
   }
 
   .section-nav svg {
-    width: 14px;
-    height: 14px;
+    display: none;
+  }
+
+  .section-nav a:hover .section-nav-icon,
+  .section-nav a.is-active .section-nav-icon {
+    width: var(--active-dot-size);
+    height: var(--active-dot-size);
+    background: var(--nav-active);
+    box-shadow:
+      0 0 0 4px color-mix(in srgb, var(--bg), transparent 8%),
+      0 10px 26px color-mix(in srgb, var(--nav-active), transparent 62%);
+    transform: none;
+  }
+
+  .section-nav a:active .section-nav-icon {
+    transform: scale(0.86);
   }
 
   .hero {
