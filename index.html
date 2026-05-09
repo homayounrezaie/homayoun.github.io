@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Homayoun Rezaie | Personal Website</title>
+    <meta
+      name="description"
+      content="Personal website for Homayoun Rezaie: profile, experience, projects, notes, and contact links."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M12 4.5a7.5 7.5 0 1 0 7.5 7.5A6.8 6.8 0 0 1 12 4.5Z"
+          fill="currentColor"
+        />
+      </svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0-4a1 1 0 0 1 1 1v1.2a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm0 14.8a1 1 0 0 1 1 1V20a1 1 0 1 1-2 0v-1.2a1 1 0 0 1 1-1ZM4 11h1.2a1 1 0 1 1 0 2H4a1 1 0 1 1 0-2Zm14.8 0H20a1 1 0 1 1 0 2h-1.2a1 1 0 1 1 0-2ZM6.3 4.9l.8.8a1 1 0 0 1-1.4 1.4l-.8-.8a1 1 0 1 1 1.4-1.4Zm12 12 .8.8a1 1 0 0 1-1.4 1.4l-.8-.8a1 1 0 0 1 1.4-1.4Zm.8-10.6-.8.8a1 1 0 0 1-1.4-1.4l.8-.8a1 1 0 1 1 1.4 1.4Zm-12 12-.8.8a1 1 0 0 1-1.4-1.4l.8-.8a1 1 0 0 1 1.4 1.4Z" fill="currentColor" />
+      </svg>
+    </button>
+
+    <header class="hero" id="about">
+      <nav class="section-nav" aria-label="Portfolio sections">
+        <a class="is-active" href="#about" data-section-link>
+          <span class="section-nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8a7 7 0 0 1 14 0" /></svg>
+          </span>
+          <span>About</span>
+        </a>
+        <a href="#projects" data-section-link>
+          <span class="section-nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h16" /></svg>
+          </span>
+          <span>Projects</span>
+        </a>
+        <a href="#experience" data-section-link>
+          <span class="section-nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2m-9 0h12v12H6V7Z" /></svg>
+          </span>
+          <span>Experiences</span>
+        </a>
+        <a href="#education" data-section-link>
+          <span class="section-nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 9 9-5 9 5-9 5-9-5Zm4 3v4c2.8 2 7.2 2 10 0v-4" /></svg>
+          </span>
+          <span>Education</span>
+        </a>
+        <a href="#certifications" data-section-link>
+          <span class="section-nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v6a4 4 0 0 1-8 0V4Zm2 13-2 4 4-2 4 2-2-4" /></svg>
+          </span>
+          <span>Certifications</span>
+        </a>
+        <a href="#toolbox" data-section-link>
+          <span class="section-nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M7 7v13m10-13v13M5 20h14M8 4h8" /></svg>
+          </span>
+          <span>Build Stack</span>
+        </a>
+        <a href="#awards" data-section-link>
+          <span class="section-nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v4a4 4 0 0 1-8 0V4Zm-2 0H4v2a4 4 0 0 0 4 4m10-6h2v2a4 4 0 0 1-4 4M12 14v4m-4 2h8" /></svg>
+          </span>
+          <span>Awards</span>
+        </a>
+      </nav>
+      <div class="hero-inner">
+        <div class="photo-wrap">
+          <div class="profile-frame">
+            <img class="profile-photo" src="images/profile.jpeg" alt="Homayoun Rezaie" />
+          </div>
+          <details class="mom-note">
+            <summary aria-label="Open conversation with my mom">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5.5 5.5h13a2 2 0 0 1 2 2v7.4a2 2 0 0 1-2 2H10l-4.2 2.7a.8.8 0 0 1-1.2-.7v-2.2a2 2 0 0 1-1.1-1.8V7.5a2 2 0 0 1 2-2Z" />
+                <path d="M8.6 10.4c0-.9.7-1.6 1.6-1.6.6 0 1.1.3 1.4.8.3-.5.8-.8 1.4-.8.9 0 1.6.7 1.6 1.6 0 1.9-3 3.4-3 3.4s-3-1.5-3-3.4Z" />
+              </svg>
+              <span>Mom note</span>
+            </summary>
+            <div class="mom-note-card" aria-label="Conversation with my mom">
+              <p><strong>Mom:</strong> Homayoun, don't try to be the ocean. Be a small lake, but deep.</p>
+              <p><strong>Me:</strong> What if I'm a deep ocean though?</p>
+              <p><strong>Mom:</strong> Right now you're a dirty puddle. Clean your room.</p>
+              <p><strong>Me:</strong> 😭</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="intro">
+          <h1>Homayoun Rezaie</h1>
+          <p>
+            Building Agentic GeoAI systems that connect geospatial reasoning,
+            remote sensing, AI agents, foundation models, and practical
+            decision-support tools. Before, we mostly looked at geospatial data
+            on maps and dashboards. Now we can talk with it, ask questions,
+            explore patterns, and make spatial analysis more interactive and
+            fun.
+          </p>
+          <p>
+            With a PhD in Remote Sensing, I work across different data types
+            (thermal, LiDAR, hyperspectral, optical, and gas imaging data) from
+            different platforms (handheld cameras, drones, aircraft, the ISS,
+            and satellites), turning complex workflows into intelligent systems
+            for real industry applications. I have also analyzed 6,000+
+            geospatial companies to understand market trends, product patterns,
+            services, and where the industry is moving. My work has been
+            supported by $300K+ in research funding, scholarships, and
+            innovation awards.
+          </p>
+          <p>
+            Alongside GeoAI, which has been my education and technical path, I
+            like working across the full product picture: finding gaps, shaping
+            ideas, managing projects, thinking through UI/UX, and now exploring
+            the business side as well. The sky is the limit.
+          </p>
+          <nav class="social-links" aria-label="Social links">
+            <a href="mailto:alirfabad@gmail.com" aria-label="Email">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 6h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Zm.9 2 7.1 5.2L19.1 8H4.9Zm14.1 8V9.9l-6.4 4.7a1 1 0 0 1-1.2 0L5 9.9V16h14Z" />
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/homayounrezaie/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6.9 8.8H4.1V20h2.8V8.8ZM5.5 4a1.6 1.6 0 1 0 0 3.2A1.6 1.6 0 0 0 5.5 4Zm6.3 4.8H9.1V20h2.7v-5.8c0-1.6.8-2.6 2.1-2.6 1.2 0 1.8.8 1.8 2.5V20h2.8v-6.4c0-3.2-1.7-5-4.3-5-1.3 0-2.3.5-3 1.5v-1.3h-.4Z" />
+              </svg>
+            </a>
+            <a href="https://github.com/homayounrezaie?tab=repositories" target="_blank" rel="noreferrer" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3.5a8.7 8.7 0 0 0-2.8 17c.4.1.5-.2.5-.4v-1.5c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.1-.9-1.1-.7-.5.1-.5.1-.5.8.1 1.2.9 1.2.9.7 1.2 1.9.8 2.3.6.1-.5.3-.8.5-1-1.8-.2-3.7-.9-3.7-4a3.1 3.1 0 0 1 .8-2.2c-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.3.8a8 8 0 0 1 4.2 0c1.6-1 2.3-.8 2.3-.8.5 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.2 0 3.1-1.9 3.8-3.7 4 .3.2.5.7.5 1.4v2.2c0 .2.1.5.6.4A8.7 8.7 0 0 0 12 3.5Z" />
+              </svg>
+            </a>
+            <a href="https://x.com/HomayounRezaie" target="_blank" rel="noreferrer" aria-label="X">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M13.7 10.6 20.2 3h-1.5L13 9.6 8.5 3H3.3l6.8 9.9L3.3 21h1.5l6-7.1 4.8 7.1h5.2l-7.1-10.4Zm-2.1 2.5-.7-1L5.4 4.2h2.4l4.4 6.3.7 1 5.8 8.3h-2.4l-4.7-6.7Z" />
+              </svg>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="projects" aria-labelledby="projects-title">
+        <h2 id="projects-title">5 Recent Projects</h2>
+        <div class="project-showcase">
+          <article class="featured-project project-floor2bim">
+            <div class="project-visual" aria-label="Floor2BIM input and output preview">
+              <figure>
+                <button
+                  class="media-button"
+                  type="button"
+                  data-modal-image="projects/Floor2BIM/input.jpeg"
+                  data-modal-caption="Input drawing"
+                  data-modal-group="floor2bim"
+                  aria-label="Open input drawing preview"
+                >
+                  <img src="projects/Floor2BIM/input.jpeg" alt="2D architectural drawing input" />
+                </button>
+                <figcaption>Input drawing</figcaption>
+              </figure>
+              <figure>
+                <button
+                  class="media-button"
+                  type="button"
+                  data-modal-image="projects/Floor2BIM/output.gif"
+                  data-modal-caption="Generated 3D model"
+                  data-modal-group="floor2bim"
+                  aria-label="Open generated 3D model preview"
+                >
+                  <img src="projects/Floor2BIM/output.gif" alt="Generated 3D gbXML model output" />
+                </button>
+                <figcaption>Generated 3D model</figcaption>
+              </figure>
+            </div>
+            <div class="project-copy">
+              <div class="project-meta">
+                <span>03</span>
+                <span>Deep Learning Pipeline</span>
+              </div>
+              <h3>2D Floor Plans to 3D-BIM</h3>
+              <p>
+                During my master's thesis, I worked on 3D modeling for cities.
+                With remote sensing data, we can often reach LOD2, which means
+                we can model the outside shape of buildings. I built models
+                using photogrammetry and LiDAR data, but I still wanted to reach
+                LOD4, where indoor details also matter.
+              </p>
+              <p>
+                LOD4 is important for building energy modeling, but at that
+                time creating it was honestly painful. Later, when I had some
+                free time, I upgraded that workflow with OCR and deep learning
+                models. The pipeline reads 2D architectural drawings, extracts
+                plans, elevations, dimensions, walls, roofs, windows, doors, and
+                geometry, then generates a 3D gbXML model for energy simulation
+                and building performance analysis.
+              </p>
+              <div class="tag-list">
+                <span>Deep Learning</span>
+                <span>BIM</span>
+                <span>BEM</span>
+                <span>gbXML</span>
+                <span>Energy Modeling</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://lnkd.in/g7ZiXqP8" target="_blank" rel="noreferrer">View online</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="featured-project project-geointerpo">
+            <div class="project-slider" data-slider aria-label="geointerpo interpolation method slideshow">
+              <div class="slider-track">
+                <figure class="is-active" data-slide>
+                <button
+                  class="media-button"
+                  type="button"
+                  data-modal-image="projects/geointerpo/idw.png"
+                  data-modal-caption="IDW interpolation"
+                  data-modal-group="geointerpo"
+                  aria-label="Open IDW interpolation preview"
+                >
+                  <img src="projects/geointerpo/idw.png" alt="IDW interpolation output" />
+                </button>
+              </figure>
+                <figure data-slide>
+                <button
+                  class="media-button"
+                  type="button"
+                  data-modal-image="projects/geointerpo/kriging.png"
+                  data-modal-caption="Kriging interpolation"
+                  data-modal-group="geointerpo"
+                  aria-label="Open Kriging interpolation preview"
+                >
+                  <img src="projects/geointerpo/kriging.png" alt="Kriging interpolation output" />
+                </button>
+              </figure>
+                <figure data-slide>
+                <button
+                  class="media-button"
+                  type="button"
+                  data-modal-image="projects/geointerpo/rbf.png"
+                  data-modal-caption="RBF interpolation"
+                  data-modal-group="geointerpo"
+                  aria-label="Open RBF interpolation preview"
+                >
+                  <img src="projects/geointerpo/rbf.png" alt="RBF interpolation output" />
+                </button>
+              </figure>
+                <figure data-slide>
+                <button
+                  class="media-button"
+                  type="button"
+                  data-modal-image="projects/geointerpo/natural_neighbor.png"
+                  data-modal-caption="Natural neighbor interpolation"
+                  data-modal-group="geointerpo"
+                  aria-label="Open natural neighbor interpolation preview"
+                >
+                  <img src="projects/geointerpo/natural_neighbor.png" alt="Natural neighbor interpolation output" />
+                </button>
+              </figure>
+                <figure data-slide>
+                <button
+                  class="media-button"
+                  type="button"
+                  data-modal-image="projects/geointerpo/cubic.png"
+                  data-modal-caption="Cubic interpolation"
+                  data-modal-group="geointerpo"
+                  aria-label="Open cubic interpolation preview"
+                >
+                  <img src="projects/geointerpo/cubic.png" alt="Cubic interpolation output" />
+                </button>
+              </figure>
+                <figure data-slide>
+                <button
+                  class="media-button"
+                  type="button"
+                  data-modal-image="projects/geointerpo/spline.png"
+                  data-modal-caption="Spline interpolation"
+                  data-modal-group="geointerpo"
+                  aria-label="Open spline interpolation preview"
+                >
+                  <img src="projects/geointerpo/spline.png" alt="Spline interpolation output" />
+                </button>
+              </figure>
+              </div>
+              <div class="slider-controls" aria-label="Slideshow controls">
+                <button type="button" data-slider-prev aria-label="Previous geointerpo preview">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 5 8.5 12l7 7" /></svg>
+                </button>
+                <div class="slider-dots" aria-label="Slide position">
+                  <button class="is-active" type="button" data-slide-dot="0" aria-label="Show IDW"></button>
+                  <button type="button" data-slide-dot="1" aria-label="Show Kriging"></button>
+                  <button type="button" data-slide-dot="2" aria-label="Show RBF"></button>
+                  <button type="button" data-slide-dot="3" aria-label="Show Natural Neighbor"></button>
+                  <button type="button" data-slide-dot="4" aria-label="Show Cubic"></button>
+                  <button type="button" data-slide-dot="5" aria-label="Show Spline"></button>
+                </div>
+                <button type="button" data-slider-next aria-label="Next geointerpo preview">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 5 7 7-7 7" /></svg>
+                </button>
+              </div>
+            </div>
+            <div class="project-copy">
+              <div class="project-meta">
+                <span>04</span>
+                <span>Spatial Interpolation Toolkit</span>
+              </div>
+              <h3>geointerpo</h3>
+              <p>
+                geointerpo is a Python package for spatial interpolation,
+                designed to make it easier to compare interpolation methods and
+                understand how sparse point observations become continuous
+                geospatial surfaces.
+              </p>
+              <p>
+                The package includes IDW, kriging, RBF, natural neighbor,
+                cubic, and spline interpolation, with example notebooks that
+                can be opened in Google Colab to reproduce the outputs. The
+                repository, documentation, and PyPI package are linked below for
+                implementation details and usage examples.
+              </p>
+              <div class="tag-list">
+                <span>Spatial Interpolation</span>
+                <span>GIS</span>
+                <span>Kriging</span>
+                <span>IDW</span>
+                <span>Python</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://github.com/homayounrezaie/geointerpo" target="_blank" rel="noreferrer">Repo</a>
+                <a href="https://lnkd.in/gr8SkCeD" target="_blank" rel="noreferrer">Docs</a>
+                <a href="https://lnkd.in/gDNA7z-C" target="_blank" rel="noreferrer">PyPI</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="featured-project project-brooksie">
+            <div class="project-slider" data-slider aria-label="brooksie.ai interface slideshow">
+              <div class="slider-track">
+                <figure class="is-active" data-slide>
+                  <button
+                    class="media-button"
+                    type="button"
+                    data-modal-image="projects/Brooksie/brooksie.png"
+                    data-modal-caption="brooksie.ai interface overview"
+                    data-modal-group="brooksie"
+                    aria-label="Open brooksie.ai interface overview"
+                  >
+                    <img src="projects/Brooksie/brooksie.png" alt="brooksie.ai interface overview" />
+                  </button>
+                </figure>
+                <figure data-slide>
+                  <button
+                    class="media-button"
+                    type="button"
+                    data-modal-image="projects/Brooksie/Screenshot%202026-05-08%20at%2010.10.38.png"
+                    data-modal-caption="brooksie.ai workflow screenshot"
+                    data-modal-group="brooksie"
+                    aria-label="Open brooksie.ai workflow screenshot"
+                  >
+                    <img src="projects/Brooksie/Screenshot%202026-05-08%20at%2010.10.38.png" alt="brooksie.ai workflow screenshot" />
+                  </button>
+                </figure>
+                <figure data-slide>
+                  <button
+                    class="media-button"
+                    type="button"
+                    data-modal-image="projects/Brooksie/Screenshot%202026-05-08%20at%2010.24.16.png"
+                    data-modal-caption="brooksie.ai analysis screenshot"
+                    data-modal-group="brooksie"
+                    aria-label="Open brooksie.ai analysis screenshot"
+                  >
+                    <img src="projects/Brooksie/Screenshot%202026-05-08%20at%2010.24.16.png" alt="brooksie.ai analysis screenshot" />
+                  </button>
+                </figure>
+                <figure data-slide>
+                  <button
+                    class="media-button"
+                    type="button"
+                    data-modal-image="projects/Brooksie/Screenshot%202026-05-08%20at%2010.46.32.png"
+                    data-modal-caption="brooksie.ai map screenshot"
+                    data-modal-group="brooksie"
+                    aria-label="Open brooksie.ai map screenshot"
+                  >
+                    <img src="projects/Brooksie/Screenshot%202026-05-08%20at%2010.46.32.png" alt="brooksie.ai map screenshot" />
+                  </button>
+                </figure>
+              </div>
+              <div class="slider-controls" aria-label="Slideshow controls">
+                <button type="button" data-slider-prev aria-label="Previous brooksie.ai preview">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 5 8.5 12l7 7" /></svg>
+                </button>
+                <div class="slider-dots" aria-label="Slide position">
+                  <button class="is-active" type="button" data-slide-dot="0" aria-label="Show brooksie.ai overview"></button>
+                  <button type="button" data-slide-dot="1" aria-label="Show brooksie.ai workflow"></button>
+                  <button type="button" data-slide-dot="2" aria-label="Show brooksie.ai analysis"></button>
+                  <button type="button" data-slide-dot="3" aria-label="Show brooksie.ai map"></button>
+                </div>
+                <button type="button" data-slider-next aria-label="Next brooksie.ai preview">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 5 7 7-7 7" /></svg>
+                </button>
+              </div>
+            </div>
+            <div class="project-copy">
+              <div class="project-meta">
+                <span>01</span>
+                <span>Agentic GeoAI Interface</span>
+              </div>
+              <h3>brooksie.ai</h3>
+              <p class="project-status">Not launched yet - currently figuring out the business model.</p>
+              <p>
+                Talk to Earth. An agentic interface where natural-language
+                queries are routed by an orchestration layer to specialized
+                tools - pulling live data from OpenStreetMap, Weather APIs,
+                Google Earth Engine, GBIF, and other open geospatial sources -
+                then processing it on the backend with GDAL, Rasterio, GeoPandas,
+                and Shapely to answer in spatial context.
+              </p>
+              <p>
+                The agent planner decomposes each request, calls the right
+                data sources and processing tools in sequence, and returns
+                annotated evidence directly on the map - no manual GIS work
+                required.
+              </p>
+              <div class="tag-list">
+                <span>Agent Orchestration</span>
+                <span>OSM / GEE / GDAL</span>
+                <span>Spatial Reasoning</span>
+                <span>GeoAI</span>
+                <span>Raster &amp; Vector</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="featured-project project-thermolabs">
+            <div class="project-slider" data-slider aria-label="ThermoLabs project slideshow">
+              <div class="slider-track">
+                <figure class="is-active" data-slide>
+                  <button
+                    class="media-button"
+                    type="button"
+                    data-modal-image="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.53.18.png"
+                    data-modal-caption="ThermoLabs landing page"
+                    data-modal-group="thermolabs"
+                    aria-label="Open ThermoLabs landing page preview"
+                  >
+                    <img src="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.53.18.png" alt="ThermoLabs landing page preview" />
+                  </button>
+                </figure>
+                <figure data-slide>
+                  <button
+                    class="media-button"
+                    type="button"
+                    data-modal-image="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.53.57.png"
+                    data-modal-caption="ThermoLabs thermal analytics workflow"
+                    data-modal-group="thermolabs"
+                    aria-label="Open ThermoLabs thermal analytics preview"
+                  >
+                    <img src="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.53.57.png" alt="ThermoLabs thermal analytics workflow preview" />
+                  </button>
+                </figure>
+                <figure data-slide>
+                  <button
+                    class="media-button"
+                    type="button"
+                    data-modal-image="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.54.33.png"
+                    data-modal-caption="ThermoLabs reporting and decision workflow"
+                    data-modal-group="thermolabs"
+                    aria-label="Open ThermoLabs reporting preview"
+                  >
+                    <img src="projects/Thermolabs/Screenshot%202026-05-08%20at%2018.54.33.png" alt="ThermoLabs reporting and decision workflow preview" />
+                  </button>
+                </figure>
+              </div>
+              <div class="slider-controls" aria-label="Slideshow controls">
+                <button type="button" data-slider-prev aria-label="Previous ThermoLabs preview">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 5 8.5 12l7 7" /></svg>
+                </button>
+                <div class="slider-dots" aria-label="Slide position">
+                  <button class="is-active" type="button" data-slide-dot="0" aria-label="Show ThermoLabs landing page"></button>
+                  <button type="button" data-slide-dot="1" aria-label="Show ThermoLabs analytics"></button>
+                  <button type="button" data-slide-dot="2" aria-label="Show ThermoLabs reporting"></button>
+                </div>
+                <button type="button" data-slider-next aria-label="Next ThermoLabs preview">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 5 7 7-7 7" /></svg>
+                </button>
+              </div>
+            </div>
+            <div class="project-copy">
+              <div class="project-meta">
+                <span>02</span>
+                <span>Thermography + AI</span>
+              </div>
+              <h3>ThermoLabs.io</h3>
+              <p>
+                ThermoLabs.io is focused on turning thermal imagery into
+                decision-ready intelligence. The project combines drone
+                thermography with physics-aware machine learning,
+                radiometric calibration, anomaly detection, and reporting
+                workflows for real operational decisions.
+              </p>
+              <p>
+                The service direction includes drone data collection for
+                methane emissions monitoring in oil and gas and landfill
+                environments, plus thermal inspections for solar, buildings,
+                powerlines, wind assets, aviation, and infrastructure. The goal
+                is to move from raw thermal captures to calibrated orthomosaics,
+                confidence-scored findings, zone-level statistics, interactive
+                portals, and clear reports that teams can act on.
+              </p>
+              <div class="tag-list">
+                <span>Thermal AI</span>
+                <span>Drone Thermography</span>
+                <span>Methane Monitoring</span>
+                <span>Oil &amp; Gas</span>
+                <span>Landfills</span>
+                <span>Anomaly Detection</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://www.thermolabs.io/" target="_blank" rel="noreferrer">Visit site</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="featured-project project-awesome-geoai">
+            <div class="project-slider" data-slider aria-label="awesome-geoai project preview">
+              <div class="slider-track">
+                <figure class="is-active" data-slide>
+                  <button
+                    class="media-button"
+                    type="button"
+                    data-modal-image="projects/awesome-geoai/Screenshot%202026-05-08%20at%2019.01.37.png"
+                    data-modal-caption="awesome-geoai reference preview"
+                    data-modal-group="awesome-geoai"
+                    aria-label="Open awesome-geoai preview"
+                  >
+                    <img src="projects/awesome-geoai/Screenshot%202026-05-08%20at%2019.01.37.png" alt="awesome-geoai reference preview" />
+                  </button>
+                </figure>
+              </div>
+            </div>
+            <div class="project-copy">
+              <div class="project-meta">
+                <span>05</span>
+                <span>GeoAI Ecosystem Reference</span>
+              </div>
+              <h3>awesome-geoai</h3>
+              <p>
+                A comprehensive reference for the geospatial AI ecosystem:
+                geo foundation models, datasets, companies, products, services,
+                satellites, sensors, data formats, and the full engineering
+                stack.
+              </p>
+              <p>
+                GeoAI resources are scattered across model releases, dataset
+                portals, research labs, startups, satellite providers, drone
+                workflows, and deployment stacks. This repo organizes the
+                critical pieces in one place so you can quickly find what
+                exists, compare options, and decide what is useful for research,
+                prototyping, or production geospatial AI systems.
+              </p>
+              <div class="tag-list">
+                <span>GeoAI</span>
+                <span>Foundation Models</span>
+                <span>Datasets</span>
+                <span>Companies</span>
+                <span>Engineering Stack</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://github.com/homayounrezaie/geospatial-companies" target="_blank" rel="noreferrer">View GitHub</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section band" id="experience" aria-labelledby="experience-title">
+        <h2 id="experience-title">Work Experience</h2>
+        <div class="experience-list">
+          <article class="experience-item">
+            <div class="experience-head">
+              <div>
+                <h3>Machine Learning Engineer</h3>
+                <p>MyHEAT · Calgary, Canada</p>
+              </div>
+              <span>Nov 2025 - Present</span>
+            </div>
+            <ul>
+              <li>Develop physics-informed ML for building-envelope performance and heat-loss behavior from high-resolution airborne thermal infrared imagery.</li>
+              <li>Adapt SAM2 for MWIR (3-5 &micro;m) building-footprint segmentation using fine-tuning, prompt engineering, and knowledge distillation.</li>
+              <li>Work end-to-end across aerial data ingestion, model training, evaluation, and production analytics for city-scale customers.</li>
+            </ul>
+          </article>
+
+          <article class="experience-item">
+            <div class="experience-head">
+              <div>
+                <h3>Machine Learning Researcher</h3>
+                <p>University of Calgary · Eyes High + Mitacs Award</p>
+              </div>
+              <span>Sep 2021 - Present</span>
+            </div>
+            <ul>
+              <li>Built ML pipelines on 4.6M+ Canadian EnerGuide records and airborne TIR imagery for national-scale residential energy-efficiency prediction.</li>
+              <li>Designed transformer, autoencoder, and teacher-student distillation models, improving R<sup>2</sup> by 0.15-0.16 across architectures.</li>
+              <li>Translated research into reproducible code, peer-reviewed publications, and city-scale planning artifacts.</li>
+            </ul>
+          </article>
+
+          <article class="experience-item">
+            <div class="experience-head">
+              <div>
+                <h3>Teaching Assistant</h3>
+                <p>Department of Geography · University of Calgary</p>
+              </div>
+              <span>Sep 2023 - Present</span>
+            </div>
+            <ul>
+              <li>Supported GEOG 485 Quantitative Analysis, GEOG 588 Urban GIS &amp; Spatial Data Analytics, GEOG 482 Applied Geospatial Data Science, and GEOG 380 Spatial Storytelling.</li>
+              <li>Led labs in Python, QGIS, ArcGIS suite, regression, spatial modeling, task automation, and feature extraction on real urban datasets.</li>
+            </ul>
+          </article>
+
+          <article class="experience-item">
+            <div class="experience-head">
+              <div>
+                <h3>Lead Geospatial Engineer</h3>
+                <p>Havabord Co. · Esfahan, Iran</p>
+              </div>
+              <span>Apr 2018 - Jan 2021</span>
+            </div>
+            <ul>
+              <li>Led enterprise GIS implementations for urban-infrastructure and environmental clients, including data migration, system integration, and validation.</li>
+              <li>Coordinated technical teams across data engineering, spatial analysis, and client delivery.</li>
+            </ul>
+          </article>
+
+          <article class="experience-item">
+            <div class="experience-head">
+              <div>
+                <h3>Geospatial Data Engineer</h3>
+                <p>Iran's National Elites Foundation · Tehran, Iran</p>
+              </div>
+              <span>Sep 2015 - Apr 2018</span>
+            </div>
+            <ul>
+              <li>Built and validated spatial datasets and analytical workflows supporting national research initiatives.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="education" aria-labelledby="education-title">
+        <h2 id="education-title">Education</h2>
+        <div class="education-list">
+          <article class="education-item">
+            <div>
+              <h3>Ph.D., Remote Sensing</h3>
+              <p>University of Calgary</p>
+            </div>
+            <span>Sep 2021 - 2026</span>
+            <p>AI/ML for airborne thermal imagery, large-scale residential energy modeling, and LiDAR rooftop geometry features for heat-loss analysis.</p>
+          </article>
+          <article class="education-item">
+            <div>
+              <h3>Applied Data Science</h3>
+              <p>WorldQuant University</p>
+            </div>
+            <span>Nov 2025 - May 2026</span>
+            <p>16-week program focused on applied data science, modeling, and analytical workflows.</p>
+          </article>
+          <article class="education-item">
+            <div>
+              <h3>M.Sc., Artificial Intelligence in Earth Observation</h3>
+              <p>Kharazmi University</p>
+            </div>
+            <span>2016 - 2019</span>
+            <p>Photogrammetric 3D modeling, remote-sensing reconstruction, spatial analysis, and AI for earth observation.</p>
+          </article>
+          <article class="education-item">
+            <div>
+              <h3>B.Sc., Landscape Architecture</h3>
+              <p>University of Tabriz</p>
+            </div>
+            <span>2011 - 2015</span>
+            <p>Design, landscape systems, and spatial thinking.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section band research-lens" id="research-lens" aria-labelledby="research-lens-title">
+        <h2 id="research-lens-title">Research Lens</h2>
+        <p class="thermal-note">
+          A lot of my research has been around thermal vision, especially
+          midwave and longwave infrared data from drones, airborne surveys, and
+          satellites. I built a reference list of satellites with thermal
+          sensors onboard, and one pattern became clear: longwave thermal
+          sensors still tend to have much coarser spatial resolution, while
+          some midwave systems can reach meter-scale detail from space. It
+          feels similar to computing, where CPUs and GPUs advanced very quickly
+          while batteries moved more slowly. So the question I keep coming back
+          to is: are we looking at an engineering problem, a physics limit, or
+          the place where both meet?
+        </p>
+      </section>
+
+      <section class="section band" id="certifications" aria-labelledby="certifications-title">
+        <h2 id="certifications-title">Certifications</h2>
+        <div class="credential-grid">
+          <article>
+            <img class="credential-logo" src="images/ITC.png" alt="Infrared Training Center logo" />
+            <h3>Level 2 Certified Thermographer</h3>
+            <p>Collecting drone data for inspections, 3D thermography, and thermal vision workflows.</p>
+          </article>
+          <article>
+            <img class="credential-logo" src="images/TC.png" alt="Transport Canada logo" />
+            <h3>Advanced Licensed Drone Pilot</h3>
+            <p>Transport Canada. RPAS BVLOS certification in progress: exam passed, 20-hour course completed, flight review pending.</p>
+          </article>
+          <article>
+            <img class="credential-logo credential-logo-pmp" src="images/PMP.png" alt="Project Management Professional logo" />
+            <h3>Project Management Professional (PMP)</h3>
+            <p>Preparing for the exam.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="toolbox" aria-labelledby="toolbox-title">
+        <h2 id="toolbox-title">How I Build GeoAI Systems</h2>
+        <p class="section-intro">
+          I think about GeoAI as the full lifecycle of data: planning the
+          question, collecting the right observations, organizing formats and
+          databases, analyzing signals, doing calibration/validation, evaluating
+          models, deploying on cloud infrastructure, and monitoring model drift
+          once the system is in production. Tools like cloud computing,
+          spatial databases, Claude AI, and Codex matter, but they are only
+          useful when the workflow is clear. When you understand the steps,
+          finding the right tools becomes the easiest part. I am also
+          increasingly interested in going deeper into system design and
+          scalable architecture for GeoAI products.
+        </p>
+        <div class="toolbox-grid">
+          <article>
+            <span class="toolbox-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 7c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3Z" />
+                <path d="M4 7v5c0 1.7 3.6 3 8 3s8-1.3 8-3V7" />
+                <path d="M4 12v5c0 1.7 3.6 3 8 3s8-1.3 8-3v-5" />
+              </svg>
+            </span>
+            <h3>Data &amp; Sensing</h3>
+            <p>Start with physical-world data across platforms (airborne, drone, and satellite imagery), sensors (midwave and longwave thermal, LiDAR, and hyperspectral), and 3D sources (point clouds and reconstructed 3D data). Work across STAC, COG, GeoParquet, NetCDF, Zarr, GeoTIFF, GeoJSON, Shapefile, and LAS/LAZ point clouds.</p>
+          </article>
+          <article>
+            <span class="toolbox-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="m4 6 5-2 6 2 5-2v14l-5 2-6-2-5 2V6Z" />
+                <path d="M9 4v14" />
+                <path d="M15 6v14" />
+                <path d="M7 10h4" />
+                <path d="M13 14h4" />
+              </svg>
+            </span>
+            <h3>Processing &amp; Analysis</h3>
+            <p>Turn raw geospatial data into reliable analytical layers using Google Earth Engine, PostGIS, GDAL, PDAL, rasterio, coordinate reference systems, accuracy checks, validation, 3D reconstruction, segmentation, object detection, and change detection.</p>
+          </article>
+          <article>
+            <span class="toolbox-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="6" cy="12" r="2" />
+                <circle cx="12" cy="6" r="2" />
+                <circle cx="18" cy="12" r="2" />
+                <circle cx="12" cy="18" r="2" />
+                <path d="m7.7 10.8 2.8-3.1" />
+                <path d="m13.5 7.7 2.8 3.1" />
+                <path d="m16.3 13.2-2.8 3.1" />
+                <path d="m10.5 16.3-2.8-3.1" />
+              </svg>
+            </span>
+            <h3>Modeling &amp; Intelligence</h3>
+            <p>Build the intelligence layer with vision-language models, transformers, autoencoders, knowledge distillation, geospatial foundation-model fine-tuning, multimodal RAG, physics-informed ML, time-series + spatial modeling, and evaluation benchmarks.</p>
+          </article>
+          <article>
+            <span class="toolbox-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M7 18h10a4 4 0 0 0 .8-7.9A6 6 0 0 0 6.4 8.4 4.5 4.5 0 0 0 7 18Z" />
+                <path d="M12 15V9" />
+                <path d="m9 12 3-3 3 3" />
+              </svg>
+            </span>
+            <h3>Production &amp; Product</h3>
+            <p>Move models into usable systems with Python, PyTorch, NumPy, SciPy, scikit-learn, pandas, R, SQL, Git, Linux, Docker, AWS, S3, SageMaker, Hugging Face, data pipelines, APIs, model evaluation, cost-aware inference, UI/UX thinking, and production-minded delivery.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section band" id="awards" aria-labelledby="awards-title">
+        <h2 id="awards-title">Awards</h2>
+        <div class="award-list">
+          <article>
+            <strong>Eyes High Doctoral Scholarship</strong>
+            <span>Computer Vision, Thermal Imagery &amp; Energy Efficiency · $140,000</span>
+          </article>
+          <article>
+            <strong>Mitacs Research Award</strong>
+            <span>Machine Learning &amp; Energy Efficiency · $40,000 · Competitive national research funding</span>
+          </article>
+          <article>
+            <strong>AI for Earth Scholarship</strong>
+            <span>Alberta Machine Intelligence Institute (AMII)</span>
+          </article>
+          <article>
+            <strong>Research Excellence Award in Rapid Energy Innovation (UREIKA)</strong>
+            <span>University of Calgary</span>
+          </article>
+          <article>
+            <strong>Geovation Lab Research Excellence Award</strong>
+            <span>University of Calgary · $40,000</span>
+          </article>
+          <article>
+            <strong>Alberta Cities Research Award</strong>
+            <span>University of Alberta</span>
+          </article>
+          <article>
+            <strong>Evolve to Innovate (e2i) Award</strong>
+            <span>University of Calgary + Innovate Calgary</span>
+          </article>
+          <article>
+            <strong>NRC Lab2Market Validate</strong>
+            <span>National Research Council Canada research commercialization program</span>
+          </article>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p>&copy; <span data-year></span> Homayoun Rezaie. All views and opinions are my own.</p>
+    </footer>
+
+    <div class="image-modal" data-image-modal hidden>
+      <button class="modal-backdrop" type="button" data-modal-close aria-label="Close preview"></button>
+      <figure class="modal-content">
+        <button class="modal-close" type="button" data-modal-close aria-label="Close preview">x</button>
+        <button class="modal-nav modal-prev" type="button" data-modal-prev aria-label="Previous preview">Prev</button>
+        <img data-modal-target alt="" />
+        <button class="modal-nav modal-next" type="button" data-modal-next aria-label="Next preview">Next</button>
+        <figcaption data-modal-title></figcaption>
+      </figure>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
