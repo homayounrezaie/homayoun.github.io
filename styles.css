@@ -1870,10 +1870,10 @@ main > .section::-webkit-scrollbar {
     height: 1.5px;
     background: repeating-linear-gradient(
       to right,
-      color-mix(in srgb, var(--text), transparent 60%) 0px,
-      color-mix(in srgb, var(--text), transparent 60%) 4px,
-      transparent 4px,
-      transparent 8px
+      color-mix(in srgb, var(--text), transparent 55%) 0px,
+      color-mix(in srgb, var(--text), transparent 55%) 2px,
+      transparent 2px,
+      transparent 7px
     );
     transform: translateY(-50%);
   }
