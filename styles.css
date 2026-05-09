@@ -1814,7 +1814,7 @@ main > .section::-webkit-scrollbar {
     background: none;
     box-shadow: none;
     backdrop-filter: none;
-    padding: 8px 4px max(8px, env(safe-area-inset-bottom));
+    padding: 8px 4px env(safe-area-inset-bottom);
     scrollbar-width: none;
     scroll-snap-type: none;
   }
@@ -2267,7 +2267,7 @@ main > .section::-webkit-scrollbar {
     background: none;
     box-shadow: none;
     backdrop-filter: none;
-    padding: 8px 4px max(8px, env(safe-area-inset-bottom));
+    padding: 8px 4px env(safe-area-inset-bottom);
     transform: none;
   }
 
