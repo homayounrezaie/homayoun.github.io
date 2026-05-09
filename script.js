@@ -277,20 +277,25 @@ const scrollActiveSectionLink = (activeLink) => {
   });
 };
 
+const navDots = Array.from(document.querySelectorAll(".nav-dot"));
+
 const setActiveSection = (id) => {
   if (!id) return;
   currentSectionId = id;
   let activeLink = null;
-  sectionLinks.forEach((link) => {
+  let activeIndex = 0;
+  sectionLinks.forEach((link, i) => {
     const isActive = link.getAttribute("href") === `#${id}`;
     link.classList.toggle("is-active", isActive);
     if (isActive) {
       activeLink = link;
+      activeIndex = i;
       link.setAttribute("aria-current", "page");
     } else {
       link.removeAttribute("aria-current");
     }
   });
+  navDots.forEach((dot, i) => dot.classList.toggle("is-active", i === activeIndex));
   scrollActiveSectionLink(activeLink);
   setPageAffordance(id);
 };
