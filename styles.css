@@ -1165,16 +1165,6 @@ main > .section::-webkit-scrollbar {
   align-self: center;
 }
 
-.project-meta {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 12px;
-  color: var(--accent);
-  font-size: 0.78rem;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
 .project-copy h3 {
   margin-bottom: 12px;
   font-size: 1.45rem;
@@ -2015,11 +2005,6 @@ main > .section::-webkit-scrollbar {
   .project-copy p,
   .project-status {
     font-size: 0.92rem;
-  }
-
-  .project-meta {
-    flex-wrap: wrap;
-    font-size: 0.7rem;
   }
 
   .project-actions a {
