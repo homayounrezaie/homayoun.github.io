@@ -40,8 +40,71 @@ const modalButtons = Array.from(document.querySelectorAll("[data-modal-image]"))
 const closeButtons = document.querySelectorAll("[data-modal-close]");
 const modalPrev = document.querySelector("[data-modal-prev]");
 const modalNext = document.querySelector("[data-modal-next]");
+const modalContent = document.querySelector(".modal-content");
 let modalGroup = [];
 let modalIndex = 0;
+
+const addSwipeNavigation = (element, onPrevious, onNext) => {
+  if (!element) return;
+
+  let startX = 0;
+  let startY = 0;
+  let isTracking = false;
+  let didSwipe = false;
+
+  element.addEventListener(
+    "pointerdown",
+    (event) => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      startX = event.clientX;
+      startY = event.clientY;
+      isTracking = true;
+      didSwipe = false;
+    },
+    { passive: true },
+  );
+
+  element.addEventListener(
+    "pointerup",
+    (event) => {
+      if (!isTracking) return;
+      isTracking = false;
+
+      const deltaX = event.clientX - startX;
+      const deltaY = event.clientY - startY;
+      const isHorizontalSwipe = Math.abs(deltaX) > 46 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2;
+
+      if (!isHorizontalSwipe) return;
+      didSwipe = true;
+
+      if (deltaX < 0) {
+        onNext();
+      } else {
+        onPrevious();
+      }
+    },
+    { passive: true },
+  );
+
+  element.addEventListener(
+    "pointercancel",
+    () => {
+      isTracking = false;
+    },
+    { passive: true },
+  );
+
+  element.addEventListener(
+    "click",
+    (event) => {
+      if (!didSwipe) return;
+      event.preventDefault();
+      event.stopPropagation();
+      didSwipe = false;
+    },
+    true,
+  );
+};
 
 const setModalImage = (button) => {
   if (!modal || !modalImage || !modalTitle || !button) return;
@@ -94,11 +157,18 @@ modalNext?.addEventListener("click", () => {
   setModalImage(modalGroup[modalIndex]);
 });
 
+addSwipeNavigation(
+  modalContent,
+  () => modalPrev?.click(),
+  () => modalNext?.click(),
+);
+
 document.querySelectorAll("[data-slider]").forEach((slider) => {
   const slides = Array.from(slider.querySelectorAll("[data-slide]"));
   const dots = Array.from(slider.querySelectorAll("[data-slide-dot]"));
   const prev = slider.querySelector("[data-slider-prev]");
   const next = slider.querySelector("[data-slider-next]");
+  const track = slider.querySelector(".slider-track");
   let activeIndex = 0;
 
   const showSlide = (index) => {
@@ -122,6 +192,12 @@ document.querySelectorAll("[data-slider]").forEach((slider) => {
       showSlide(Number(dot.getAttribute("data-slide-dot")));
     });
   });
+
+  addSwipeNavigation(
+    track,
+    () => showSlide(activeIndex - 1),
+    () => showSlide(activeIndex + 1),
+  );
 });
 
 const sectionLinks = Array.from(document.querySelectorAll("[data-section-link]"));
@@ -149,3 +225,59 @@ if ("IntersectionObserver" in window && linkedSections.length) {
 
   linkedSections.forEach((section) => observer.observe(section));
 }
+
+const pageTargets = [document.querySelector(".hero"), ...document.querySelectorAll("main > .section")].filter(Boolean);
+const mobilePageQuery = window.matchMedia("(max-width: 780px)");
+let pageSwipeStart = null;
+
+const getCurrentPageIndex = () => {
+  const viewportCenter = window.innerHeight / 2;
+  return pageTargets.reduce(
+    (closest, section, index) => {
+      const rect = section.getBoundingClientRect();
+      const distance = Math.abs(rect.top + rect.height / 2 - viewportCenter);
+      return distance < closest.distance ? { index, distance } : closest;
+    },
+    { index: 0, distance: Number.POSITIVE_INFINITY },
+  ).index;
+};
+
+const isPageSwipeExcluded = (target) =>
+  target.closest(
+    "a, button, summary, input, textarea, select, [data-slider], .image-modal, .section-nav, .mom-note",
+  );
+
+document.addEventListener(
+  "pointerdown",
+  (event) => {
+    if (!mobilePageQuery.matches || isPageSwipeExcluded(event.target)) {
+      pageSwipeStart = null;
+      return;
+    }
+
+    pageSwipeStart = { x: event.clientX, y: event.clientY };
+  },
+  { passive: true },
+);
+
+document.addEventListener(
+  "pointerup",
+  (event) => {
+    if (!pageSwipeStart || !mobilePageQuery.matches) return;
+
+    const deltaX = event.clientX - pageSwipeStart.x;
+    const deltaY = event.clientY - pageSwipeStart.y;
+    pageSwipeStart = null;
+
+    const isHorizontalSwipe = Math.abs(deltaX) > 64 && Math.abs(deltaX) > Math.abs(deltaY) * 1.35;
+    if (!isHorizontalSwipe) return;
+
+    event.preventDefault();
+
+    const currentIndex = getCurrentPageIndex();
+    const nextIndex = deltaX < 0 ? currentIndex + 1 : currentIndex - 1;
+    const nextSection = pageTargets[Math.max(0, Math.min(pageTargets.length - 1, nextIndex))];
+    nextSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+  },
+  { passive: false },
+);

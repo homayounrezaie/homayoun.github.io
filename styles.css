@@ -445,6 +445,13 @@ h4 {
   backdrop-filter: blur(20px) saturate(145%);
 }
 
+.hero:focus,
+.section:focus,
+.hero:target,
+.section:target {
+  outline: none;
+}
+
 .section > * {
   max-width: 820px;
 }
@@ -1351,8 +1358,13 @@ h4 {
 }
 
 @media (max-width: 780px) {
+  html {
+    scroll-padding-top: 0;
+    scroll-snap-type: y mandatory;
+  }
+
   body {
-    padding-bottom: 92px;
+    padding-bottom: 0;
     background-attachment: scroll;
   }
 
@@ -1362,9 +1374,20 @@ h4 {
   }
 
   .hero {
-    min-height: auto;
-    padding: 58px 24px 42px;
+    height: 100svh;
+    min-height: 100svh;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    scrollbar-width: none;
+    padding: 44px 24px 104px;
     display: block;
+  }
+
+  .hero::-webkit-scrollbar,
+  main > .section::-webkit-scrollbar {
+    display: none;
   }
 
   .section-nav {
@@ -1468,10 +1491,18 @@ h4 {
   }
 
   .section {
+    height: 100svh;
     width: calc(100% - 36px);
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    scrollbar-width: none;
+    margin-block: 0;
     padding: 38px 24px;
+    padding-bottom: 104px;
     border-radius: 22px;
-    scroll-margin-top: 16px;
+    scroll-margin-top: 0;
   }
 
   .section h2 {
@@ -1568,6 +1599,7 @@ h4 {
   .slider-track,
   .slider-track figure {
     min-height: 220px;
+    touch-action: pan-y;
   }
 
   .project-brooksie .slider-track,
@@ -1660,6 +1692,7 @@ h4 {
     width: min(96vw, 680px);
     max-height: 86vh;
     border-radius: 18px;
+    touch-action: pan-y;
   }
 
   .modal-content img {
@@ -1693,7 +1726,7 @@ h4 {
 
   .section {
     width: calc(100% - 24px);
-    padding: 34px 20px;
+    padding: 34px 20px 104px;
   }
 
   .section-nav {
