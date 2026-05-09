@@ -44,11 +44,13 @@
 
 html {
   background: var(--bg);
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
+  overflow-x: hidden;
   background:
     radial-gradient(circle at 14% 8%, color-mix(in srgb, var(--accent), transparent 86%), transparent 28rem),
     radial-gradient(circle at 82% 18%, color-mix(in srgb, #14b8a6, transparent 88%), transparent 30rem),
@@ -424,6 +426,7 @@ h4 {
 
 .section {
   padding: 54px 40px;
+  scroll-margin-top: 18px;
 }
 
 .section > * {
@@ -1348,23 +1351,47 @@ h4 {
 }
 
 @media (max-width: 780px) {
+  body {
+    padding-bottom: 92px;
+    background-attachment: scroll;
+  }
+
+  body::before {
+    background-size: 86px 86px, 86px 86px, auto, auto, auto;
+    opacity: 0.5;
+  }
+
   .hero {
     min-height: auto;
-    padding: 64px 28px 48px;
+    padding: 58px 24px 42px;
     display: block;
   }
 
   .section-nav {
-    position: relative;
-    left: auto;
+    position: fixed;
+    left: 12px;
+    right: 12px;
     top: auto;
+    bottom: 12px;
+    z-index: 20;
     display: flex;
-    width: 100%;
-    gap: 16px;
-    margin: 0 0 30px;
+    width: auto;
+    gap: 4px;
+    margin: 0;
     overflow-x: auto;
     transform: none;
-    padding-bottom: 4px;
+    border: 1px solid var(--glass-line);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--glass-strong), transparent 4%);
+    box-shadow: 0 18px 48px color-mix(in srgb, var(--text), transparent 84%);
+    backdrop-filter: blur(20px) saturate(150%);
+    padding: 6px;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+  }
+
+  .section-nav::-webkit-scrollbar {
+    display: none;
   }
 
   .section-nav::before {
@@ -1375,23 +1402,48 @@ h4 {
     flex: 0 0 auto;
     display: grid;
     justify-items: center;
-    gap: 5px;
-    min-width: 74px;
-    font-size: 0.66rem;
+    gap: 4px;
+    min-width: 46px;
+    color: var(--muted);
+    font-size: 0.59rem;
+    line-height: 1.1;
+    scroll-snap-align: center;
+  }
+
+  .section-nav a > span:last-child {
+    display: none;
+  }
+
+  .section-nav a::after {
+    content: attr(data-short);
+    font-weight: 650;
+    opacity: 0.86;
+  }
+
+  .section-nav a.is-active::after {
+    color: var(--nav-active);
+    opacity: 1;
   }
 
   .section-nav-icon {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
+    box-shadow: none;
+  }
+
+  .section-nav svg {
+    width: 14px;
+    height: 14px;
   }
 
   .hero-inner {
     width: 100%;
     grid-template-columns: 1fr;
+    gap: 28px;
   }
 
   .profile-frame {
-    width: min(62vw, 220px);
+    width: min(58vw, 220px);
   }
 
   .photo-wrap {
@@ -1417,7 +1469,34 @@ h4 {
 
   .section {
     width: calc(100% - 36px);
-    padding: 42px 28px;
+    padding: 38px 24px;
+    border-radius: 22px;
+    scroll-margin-top: 16px;
+  }
+
+  .section h2 {
+    font-size: 1.22rem;
+  }
+
+  .intro h1 {
+    font-size: 1.48rem;
+    line-height: 1.28;
+  }
+
+  .intro p,
+  .section-intro,
+  .thermal-note {
+    font-size: 0.94rem;
+    line-height: 1.66;
+  }
+
+  .social-links {
+    justify-content: flex-start;
+  }
+
+  .social-links a {
+    width: 42px;
+    height: 42px;
   }
 
   .experience-head {
@@ -1431,6 +1510,98 @@ h4 {
 
   .featured-project {
     grid-template-columns: 1fr;
+    gap: 18px;
+    border-radius: 20px;
+    padding: 16px;
+  }
+
+  .project-copy,
+  .project-visual,
+  .project-slider,
+  .project-brooksie .project-copy,
+  .project-thermolabs .project-copy,
+  .project-awesome-geoai .project-copy,
+  .project-brooksie .project-slider,
+  .project-thermolabs .project-slider,
+  .project-awesome-geoai .project-slider {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .project-copy {
+    order: 1;
+  }
+
+  .project-visual,
+  .project-slider {
+    order: 2;
+  }
+
+  .project-copy {
+    align-self: start;
+  }
+
+  .project-copy h3 {
+    font-size: 1.22rem;
+  }
+
+  .project-copy p,
+  .project-status {
+    font-size: 0.92rem;
+  }
+
+  .project-meta {
+    flex-wrap: wrap;
+    font-size: 0.7rem;
+  }
+
+  .tag-list span {
+    font-size: 0.72rem;
+    padding: 5px 9px;
+  }
+
+  .project-actions a {
+    min-height: 36px;
+    font-size: 0.82rem;
+  }
+
+  .slider-track,
+  .slider-track figure {
+    min-height: 220px;
+  }
+
+  .project-brooksie .slider-track,
+  .project-brooksie .slider-track figure,
+  .project-thermolabs .slider-track,
+  .project-thermolabs .slider-track figure,
+  .project-awesome-geoai .slider-track,
+  .project-awesome-geoai .slider-track figure {
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+  }
+
+  .project-brooksie .slider-track img,
+  .project-thermolabs .slider-track img,
+  .project-awesome-geoai .slider-track img {
+    object-fit: contain;
+    background: color-mix(in srgb, var(--band), transparent 35%);
+  }
+
+  .slider-controls {
+    padding: 7px 9px;
+  }
+
+  .slider-controls > button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .slider-track figcaption,
+  .project-visual figcaption {
+    left: 10px;
+    top: 10px;
+    padding: 6px 9px;
+    font-size: 0.64rem;
   }
 
   .info-grid {
@@ -1441,8 +1612,30 @@ h4 {
     grid-template-columns: 1fr;
   }
 
+  .toolbox-grid article {
+    min-height: auto;
+    padding: 18px;
+  }
+
+  .toolbox-grid p {
+    max-width: none;
+  }
+
   .credential-grid {
     grid-template-columns: 1fr;
+  }
+
+  .credential-grid article {
+    min-height: 0;
+  }
+
+  .credential-logo {
+    height: 48px;
+    margin-bottom: 14px;
+  }
+
+  .credential-logo-pmp {
+    height: 64px;
   }
 
   .education-item {
@@ -1460,14 +1653,38 @@ h4 {
   }
 
   .project-visual {
-    min-height: 240px;
+    min-height: 260px;
+  }
+
+  .modal-content {
+    width: min(96vw, 680px);
+    max-height: 86vh;
+    border-radius: 18px;
+  }
+
+  .modal-content img {
+    max-height: 70vh;
+  }
+
+  .modal-nav {
+    top: auto;
+    bottom: 50px;
+    transform: none;
+  }
+
+  .modal-prev {
+    left: 14px;
+  }
+
+  .modal-next {
+    right: 14px;
   }
 
 }
 
 @media (max-width: 520px) {
   .hero {
-    padding-inline: 22px;
+    padding-inline: 20px;
   }
 
   .footer {
@@ -1475,7 +1692,56 @@ h4 {
   }
 
   .section {
-    width: calc(100% - 28px);
-    padding-inline: 22px;
+    width: calc(100% - 24px);
+    padding: 34px 20px;
+  }
+
+  .section-nav {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    padding: 7px;
+  }
+
+  .section-nav a {
+    min-width: 44px;
+    font-size: 0.56rem;
+  }
+
+  .section-nav-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .profile-frame {
+    width: min(62vw, 214px);
+  }
+
+  .project-showcase {
+    gap: 14px;
+  }
+
+  .featured-project {
+    padding: 14px;
+  }
+
+  .slider-track,
+  .slider-track figure {
+    min-height: 190px;
+  }
+
+  .project-visual {
+    min-height: 230px;
+  }
+
+  .toolbox-icon {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 14px;
+  }
+
+  .toolbox-icon svg {
+    width: 22px;
+    height: 22px;
   }
 }
