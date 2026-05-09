@@ -221,23 +221,91 @@ document.querySelectorAll("[data-slider]").forEach((slider) => {
 
 const sectionLinks = Array.from(document.querySelectorAll("[data-section-link]"));
 const pageTrack = document.querySelector("[data-page-track]");
+const pageIndicator = document.querySelector("[data-page-indicator]");
+const pageEdgeButtons = Array.from(document.querySelectorAll("[data-page-edge]"));
+const mobilePageQuery = window.matchMedia("(max-width: 780px)");
+const phonePageQuery = window.matchMedia("(max-width: 767px)");
+const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const linkedSections = sectionLinks
   .map((link) => document.querySelector(link.getAttribute("href")))
   .filter(Boolean);
 let currentSectionId = location.hash.slice(1) || "about";
+let pageIndicatorButtons = [];
+let lastAffordanceSectionId = null;
+let pageAnimationFrame = null;
+const pageAffordanceLimit = 3;
+
+const getPageAffordanceViews = () => Number(sessionStorage.getItem("pageAffordanceViews") || "0");
+
+const setPageAffordance = (id) => {
+  if (!phonePageQuery.matches) {
+    document.body.classList.remove("show-page-affordance");
+    return;
+  }
+
+  let views = getPageAffordanceViews();
+  const shouldShow = views < pageAffordanceLimit;
+  document.body.classList.toggle("show-page-affordance", shouldShow);
+
+  if (!shouldShow || !id || id === lastAffordanceSectionId) return;
+
+  lastAffordanceSectionId = id;
+  views += 1;
+  sessionStorage.setItem("pageAffordanceViews", String(views));
+
+  if (views >= pageAffordanceLimit) {
+    window.setTimeout(() => {
+      document.body.classList.remove("show-page-affordance");
+    }, 1300);
+  }
+};
+
+const scrollActiveSectionLink = (activeLink) => {
+  if (!phonePageQuery.matches || !activeLink) return;
+  const nav = activeLink.closest(".section-nav");
+  if (!nav) return;
+
+  const navRect = nav.getBoundingClientRect();
+  const linkRect = activeLink.getBoundingClientRect();
+  const left = nav.scrollLeft + linkRect.left - navRect.left - (navRect.width - linkRect.width) / 2;
+
+  nav.scrollTo({
+    left: Math.max(0, left),
+    behavior: reducedMotionQuery.matches ? "auto" : "smooth",
+  });
+};
+
+const setActivePageIndicator = (id) => {
+  if (!pageIndicatorButtons.length) return;
+
+  pageIndicatorButtons.forEach((button) => {
+    const isActive = button.getAttribute("data-page-target") === id;
+    button.classList.toggle("is-active", isActive);
+    if (isActive) {
+      button.setAttribute("aria-current", "page");
+    } else {
+      button.removeAttribute("aria-current");
+    }
+  });
+};
 
 const setActiveSection = (id) => {
   if (!id) return;
   currentSectionId = id;
+  let activeLink = null;
   sectionLinks.forEach((link) => {
     const isActive = link.getAttribute("href") === `#${id}`;
     link.classList.toggle("is-active", isActive);
     if (isActive) {
+      activeLink = link;
       link.setAttribute("aria-current", "page");
     } else {
       link.removeAttribute("aria-current");
     }
   });
+  setActivePageIndicator(id);
+  scrollActiveSectionLink(activeLink);
+  setPageAffordance(id);
 };
 
 const replaceSectionHash = (id) => {
@@ -261,12 +329,36 @@ if ("IntersectionObserver" in window && linkedSections.length) {
 }
 
 const pageTargets = [document.querySelector(".hero"), ...document.querySelectorAll("main > .section")].filter(Boolean);
-const mobilePageQuery = window.matchMedia("(max-width: 780px)");
 let pageSwipeStart = null;
 let pageScrollFrame = null;
 let windowScrollFrame = null;
 let pullRefreshStart = null;
 const pullRefreshThreshold = 82;
+
+const buildPageIndicator = () => {
+  if (!pageIndicator || pageIndicatorButtons.length) return;
+
+  const labels = sectionLinks.map((link) => link.querySelector("span:last-child")?.textContent?.trim() || link.dataset.short);
+  const fragment = document.createDocumentFragment();
+
+  pageTargets.forEach((section, index) => {
+    if (!section.id) return;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.setAttribute("data-page-target", section.id);
+    button.setAttribute("aria-label", `Go to ${labels[index] || section.id}`);
+    button.addEventListener("click", () => {
+      if (!phonePageQuery.matches) return;
+      syncSection(section, true);
+      scrollToPage(section);
+    });
+    fragment.append(button);
+    pageIndicatorButtons.push(button);
+  });
+
+  pageIndicator.append(fragment);
+  setActivePageIndicator(currentSectionId);
+};
 
 const getSectionById = (id) => pageTargets.find((section) => section.id === id) || null;
 
@@ -308,12 +400,51 @@ const getCurrentPageIndex = () => {
   ).index;
 };
 
+const animatePageScroll = (left) => {
+  if (!pageTrack) return;
+
+  if (pageAnimationFrame) {
+    cancelAnimationFrame(pageAnimationFrame);
+    pageAnimationFrame = null;
+  }
+
+  const start = pageTrack.scrollLeft;
+  const distance = left - start;
+  const duration = 250;
+  const startedAt = performance.now();
+
+  const step = (time) => {
+    const progress = Math.min((time - startedAt) / duration, 1);
+    const eased = 1 - (1 - progress) ** 3;
+    pageTrack.scrollLeft = start + distance * eased;
+
+    if (progress < 1) {
+      pageAnimationFrame = requestAnimationFrame(step);
+      return;
+    }
+
+    pageTrack.scrollLeft = left;
+    pageAnimationFrame = null;
+  };
+
+  pageAnimationFrame = requestAnimationFrame(step);
+};
+
 const scrollToPage = (section, behavior = "smooth") => {
   if (!section) return;
 
   if (mobilePageQuery.matches && pageTrack) {
     if (behavior === "auto" || behavior === "instant") {
+      if (pageAnimationFrame) {
+        cancelAnimationFrame(pageAnimationFrame);
+        pageAnimationFrame = null;
+      }
       pageTrack.scrollLeft = section.offsetLeft;
+      return;
+    }
+
+    if (phonePageQuery.matches && !reducedMotionQuery.matches) {
+      animatePageScroll(section.offsetLeft);
       return;
     }
 
@@ -328,6 +459,19 @@ const syncCurrentPage = (updateHash = false) => {
   syncSection(pageTargets[getCurrentPageIndex()], updateHash);
 };
 
+const goToPageByOffset = (offset) => {
+  if (!phonePageQuery.matches) return;
+  const currentIndex = getCurrentPageIndex();
+  const nextIndex = Math.max(0, Math.min(pageTargets.length - 1, currentIndex + offset));
+  if (nextIndex === currentIndex) return;
+
+  const nextSection = pageTargets[nextIndex];
+  syncSection(nextSection, true);
+  scrollToPage(nextSection);
+};
+
+buildPageIndicator();
+
 sectionLinks.forEach((link) => {
   link.addEventListener("click", (event) => {
     if (!mobilePageQuery.matches) return;
@@ -337,6 +481,12 @@ sectionLinks.forEach((link) => {
     event.preventDefault();
     syncSection(section, true);
     scrollToPage(section);
+  });
+});
+
+pageEdgeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    goToPageByOffset(button.getAttribute("data-page-edge") === "next" ? 1 : -1);
   });
 });
 
@@ -369,7 +519,7 @@ window.addEventListener(
 
 const isPullRefreshExcluded = (target) =>
   target.closest(
-    "a, button, summary, input, textarea, select, [data-slider], .image-modal, .section-nav, .mom-note",
+    "a, button, summary, input, textarea, select, [data-slider], .image-modal, .section-nav, .mom-note, .mobile-page-indicator, .mobile-social-footer, .footer, .page-edge",
   );
 
 const setPullRefreshProgress = (distance, isReady = false) => {
@@ -478,7 +628,7 @@ document.addEventListener("touchcancel", finishPullRefresh, { passive: true });
 
 const isPageSwipeExcluded = (target) =>
   target.closest(
-    "a, button, summary, input, textarea, select, [data-slider], .image-modal, .section-nav, .mom-note",
+    "a, button, summary, input, textarea, select, [data-slider], .image-modal, .section-nav, .mom-note, .mobile-page-indicator, .mobile-social-footer, .footer, .page-edge",
   );
 
 document.addEventListener(
