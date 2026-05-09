@@ -586,6 +586,13 @@ main > .section::-webkit-scrollbar {
   outline: none;
 }
 
+@media (max-width: 1023px), (pointer: coarse) {
+  .hero,
+  .section {
+    touch-action: pan-y;
+  }
+}
+
 .section > * {
   max-width: 820px;
 }

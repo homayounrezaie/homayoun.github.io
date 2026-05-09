@@ -317,6 +317,7 @@ if ("IntersectionObserver" in window && linkedSections.length) {
 
 const pageTargets = [document.querySelector(".hero"), ...document.querySelectorAll("main > .section")].filter(Boolean);
 let pageSwipeStart = null;
+let pageSwipeLast = null;
 let pageScrollFrame = null;
 let windowScrollFrame = null;
 let pullRefreshStart = null;
@@ -540,6 +541,7 @@ const updatePullRefresh = (clientX, clientY, event) => {
 
   event.preventDefault();
   pageSwipeStart = null;
+  pageSwipeLast = null;
 
   const distance = Math.min(deltaY * 0.58, 112);
   pullRefreshStart.ready = distance >= pullRefreshThreshold;
@@ -586,24 +588,61 @@ const finishPullRefresh = () => {
 document.addEventListener("touchend", finishPullRefresh, { passive: true });
 document.addEventListener("touchcancel", finishPullRefresh, { passive: true });
 
-const isPageSwipeExcluded = (target) =>
-  target.closest(
-    "a, button, summary, input, textarea, select, [data-slider], .image-modal, .section-nav, .mom-note, .mobile-social-footer, .footer, .page-edge",
+const isPageSwipeExcluded = (target) => {
+  if (target.closest(".page-edge")) return false;
+
+  return target.closest(
+    "a, button, summary, input, textarea, select, [data-slider], .image-modal, .section-nav, .mom-note, .mobile-social-footer, .footer",
   );
+};
+
+const beginPageSwipe = (clientX, clientY, target) => {
+  if (!pagedModeQuery.matches || !pageTrack || isPageSwipeExcluded(target)) {
+    pageSwipeStart = null;
+    pageSwipeLast = null;
+    return;
+  }
+
+  pageSwipeStart = {
+    x: clientX,
+    y: clientY,
+    scrollLeft: pageTrack.scrollLeft,
+  };
+  pageSwipeLast = { x: clientX, y: clientY };
+};
+
+const updatePageSwipe = (clientX, clientY) => {
+  if (!pageSwipeStart) return;
+  pageSwipeLast = { x: clientX, y: clientY };
+};
+
+const finishPageSwipe = (clientX, clientY, event) => {
+  if (!pageSwipeStart || !pagedModeQuery.matches) return;
+
+  const deltaX = clientX - pageSwipeStart.x;
+  const deltaY = clientY - pageSwipeStart.y;
+  const nativeScrollDelta = pageTrack ? Math.abs(pageTrack.scrollLeft - pageSwipeStart.scrollLeft) : 0;
+  pageSwipeStart = null;
+  pageSwipeLast = null;
+
+  if (nativeScrollDelta > 24) return;
+
+  const isHorizontalSwipe = Math.abs(deltaX) > 64 && Math.abs(deltaX) > Math.abs(deltaY) * 1.35;
+  if (!isHorizontalSwipe) return;
+
+  if (event.cancelable) event.preventDefault();
+
+  const currentIndex = getCurrentPageIndex();
+  const nextIndex = deltaX < 0 ? currentIndex + 1 : currentIndex - 1;
+  const nextSection = pageTargets[Math.max(0, Math.min(pageTargets.length - 1, nextIndex))];
+  syncSection(nextSection, true);
+  scrollToPage(nextSection);
+};
 
 document.addEventListener(
   "pointerdown",
   (event) => {
-    if (!pagedModeQuery.matches || isPageSwipeExcluded(event.target)) {
-      pageSwipeStart = null;
-      return;
-    }
-
-    pageSwipeStart = {
-      x: event.clientX,
-      y: event.clientY,
-      scrollLeft: pageTrack?.scrollLeft ?? 0,
-    };
+    beginPageSwipe(event.clientX, event.clientY, event.target);
   },
   { passive: true },
 );
@@ -611,27 +650,54 @@ document.addEventListener(
 document.addEventListener(
   "pointerup",
   (event) => {
-    if (!pageSwipeStart || !pagedModeQuery.matches) return;
-
-    const deltaX = event.clientX - pageSwipeStart.x;
-    const deltaY = event.clientY - pageSwipeStart.y;
-    const nativeScrollDelta = pageTrack ? Math.abs(pageTrack.scrollLeft - pageSwipeStart.scrollLeft) : 0;
-    pageSwipeStart = null;
-
-    if (nativeScrollDelta > 24) return;
-
-    const isHorizontalSwipe = Math.abs(deltaX) > 64 && Math.abs(deltaX) > Math.abs(deltaY) * 1.35;
-    if (!isHorizontalSwipe) return;
-
-    event.preventDefault();
-
-    const currentIndex = getCurrentPageIndex();
-    const nextIndex = deltaX < 0 ? currentIndex + 1 : currentIndex - 1;
-    const nextSection = pageTargets[Math.max(0, Math.min(pageTargets.length - 1, nextIndex))];
-    syncSection(nextSection, true);
-    scrollToPage(nextSection);
+    finishPageSwipe(event.clientX, event.clientY, event);
   },
   { passive: false },
+);
+
+document.addEventListener(
+  "touchstart",
+  (event) => {
+    if (event.touches.length !== 1) {
+      pageSwipeStart = null;
+      pageSwipeLast = null;
+      return;
+    }
+
+    const touch = event.touches[0];
+    beginPageSwipe(touch.clientX, touch.clientY, event.target);
+  },
+  { passive: true },
+);
+
+document.addEventListener(
+  "touchend",
+  (event) => {
+    const touch = event.changedTouches[0];
+    const point = touch ? { x: touch.clientX, y: touch.clientY } : pageSwipeLast;
+    if (!point) return;
+    finishPageSwipe(point.x, point.y, event);
+  },
+  { passive: false },
+);
+
+document.addEventListener(
+  "touchmove",
+  (event) => {
+    if (event.touches.length !== 1) return;
+    const touch = event.touches[0];
+    updatePageSwipe(touch.clientX, touch.clientY);
+  },
+  { passive: true },
+);
+
+document.addEventListener(
+  "touchcancel",
+  () => {
+    pageSwipeStart = null;
+    pageSwipeLast = null;
+  },
+  { passive: true },
 );
 
 window.addEventListener("hashchange", () => {
