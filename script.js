@@ -2,6 +2,8 @@ const year = document.querySelector("[data-year]");
 const toggle = document.querySelector("[data-theme-toggle]");
 const root = document.documentElement;
 const storedTheme = localStorage.getItem("theme");
+const pullRefresh = document.querySelector("[data-pull-refresh]");
+const pullRefreshText = document.querySelector("[data-pull-refresh-text]");
 
 if (year) {
   year.textContent = new Date().getFullYear();
@@ -43,6 +45,7 @@ const modalNext = document.querySelector("[data-modal-next]");
 const modalContent = document.querySelector(".modal-content");
 let modalGroup = [];
 let modalIndex = 0;
+let lastModalTrigger = null;
 
 const addSwipeNavigation = (element, onPrevious, onNext) => {
   if (!element) return;
@@ -116,18 +119,23 @@ const setModalImage = (button) => {
   modalImage.alt = caption;
   modalTitle.textContent = caption;
   modal.hidden = false;
+  document.body.classList.add("has-open-modal");
 };
 
 const closeModal = () => {
   if (!modal || !modalImage || !modalTitle) return;
+  const wasOpen = !modal.hidden;
   modal.hidden = true;
   modalImage.removeAttribute("src");
   modalImage.alt = "";
   modalTitle.textContent = "";
+  document.body.classList.remove("has-open-modal");
+  if (wasOpen) lastModalTrigger?.focus({ preventScroll: true });
 };
 
 modalButtons.forEach((button) => {
   button.addEventListener("click", () => {
+    lastModalTrigger = button;
     const group = button.getAttribute("data-modal-group");
     modalGroup = modalButtons.filter((item) => item.getAttribute("data-modal-group") === group);
     modalIndex = modalGroup.indexOf(button);
@@ -177,10 +185,17 @@ document.querySelectorAll("[data-slider]").forEach((slider) => {
 
     slides.forEach((slide, slideIndex) => {
       slide.classList.toggle("is-active", slideIndex === activeIndex);
+      slide.toggleAttribute("aria-hidden", slideIndex !== activeIndex);
     });
 
     dots.forEach((dot, dotIndex) => {
-      dot.classList.toggle("is-active", dotIndex === activeIndex);
+      const isActive = dotIndex === activeIndex;
+      dot.classList.toggle("is-active", isActive);
+      if (isActive) {
+        dot.setAttribute("aria-current", "true");
+      } else {
+        dot.removeAttribute("aria-current");
+      }
     });
   };
 
@@ -198,6 +213,8 @@ document.querySelectorAll("[data-slider]").forEach((slider) => {
     () => showSlide(activeIndex - 1),
     () => showSlide(activeIndex + 1),
   );
+
+  showSlide(0);
 });
 
 const sectionLinks = Array.from(document.querySelectorAll("[data-section-link]"));
@@ -208,7 +225,13 @@ const linkedSections = sectionLinks
 
 const setActiveSection = (id) => {
   sectionLinks.forEach((link) => {
-    link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`);
+    const isActive = link.getAttribute("href") === `#${id}`;
+    link.classList.toggle("is-active", isActive);
+    if (isActive) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
+    }
   });
 };
 
@@ -231,6 +254,8 @@ const pageTargets = [document.querySelector(".hero"), ...document.querySelectorA
 const mobilePageQuery = window.matchMedia("(max-width: 780px)");
 let pageSwipeStart = null;
 let pageScrollFrame = null;
+let pullRefreshStart = null;
+const pullRefreshThreshold = 82;
 
 const getCurrentPageIndex = () => {
   if (mobilePageQuery.matches && pageTrack) {
@@ -292,6 +317,118 @@ pageTrack?.addEventListener(
   },
   { passive: true },
 );
+
+const isPullRefreshExcluded = (target) =>
+  target.closest(
+    "a, button, summary, input, textarea, select, [data-slider], .image-modal, .section-nav, .mom-note",
+  );
+
+const setPullRefreshProgress = (distance, isReady = false) => {
+  if (!pullRefresh || !pullRefreshText) return;
+  pullRefresh.classList.add("is-visible");
+  pullRefresh.classList.toggle("is-ready", isReady);
+  pullRefresh.style.setProperty("--pull-distance", `${distance}px`);
+  pullRefresh.style.setProperty("--pull-rotation", `${Math.min(distance * 3, 180)}deg`);
+  pullRefreshText.textContent = isReady ? "Release to refresh" : "Pull to refresh";
+};
+
+const resetPullRefresh = () => {
+  if (!pullRefresh || !pullRefreshText) return;
+  pullRefresh.classList.remove("is-visible", "is-ready", "is-refreshing");
+  pullRefresh.style.removeProperty("--pull-distance");
+  pullRefresh.style.removeProperty("--pull-rotation");
+  pullRefreshText.textContent = "Pull to refresh";
+};
+
+const triggerPullRefresh = () => {
+  if (!pullRefresh || !pullRefreshText) return;
+  pullRefresh.classList.add("is-visible", "is-refreshing");
+  pullRefresh.classList.remove("is-ready");
+  pullRefresh.style.setProperty("--pull-distance", "86px");
+  pullRefreshText.textContent = "Refreshing";
+  window.setTimeout(() => window.location.reload(), 220);
+};
+
+const beginPullRefresh = (clientX, clientY, target) => {
+  if (!mobilePageQuery.matches || !pageTrack || !modal?.hidden || isPullRefreshExcluded(target)) {
+    pullRefreshStart = null;
+    return;
+  }
+
+  const currentPage = pageTargets[getCurrentPageIndex()];
+  if (!currentPage || currentPage.scrollTop > 1) {
+    pullRefreshStart = null;
+    return;
+  }
+
+  pullRefreshStart = {
+    x: clientX,
+    y: clientY,
+    page: currentPage,
+  };
+};
+
+const updatePullRefresh = (clientX, clientY, event) => {
+  if (!pullRefreshStart || !mobilePageQuery.matches) return;
+
+  const deltaX = clientX - pullRefreshStart.x;
+  const deltaY = clientY - pullRefreshStart.y;
+
+  if (deltaY < 0 || Math.abs(deltaX) > deltaY * 1.15 || pullRefreshStart.page.scrollTop > 1) {
+    pullRefreshStart = null;
+    resetPullRefresh();
+    return;
+  }
+
+  if (deltaY < 12) return;
+
+  event.preventDefault();
+  pageSwipeStart = null;
+
+  const distance = Math.min(deltaY * 0.58, 112);
+  pullRefreshStart.ready = distance >= pullRefreshThreshold;
+  setPullRefreshProgress(distance, pullRefreshStart.ready);
+};
+
+document.addEventListener(
+  "touchstart",
+  (event) => {
+    if (event.touches.length !== 1) {
+      pullRefreshStart = null;
+      return;
+    }
+
+    const touch = event.touches[0];
+    beginPullRefresh(touch.clientX, touch.clientY, event.target);
+  },
+  { passive: true },
+);
+
+document.addEventListener(
+  "touchmove",
+  (event) => {
+    if (event.touches.length !== 1) return;
+    const touch = event.touches[0];
+    updatePullRefresh(touch.clientX, touch.clientY, event);
+  },
+  { passive: false },
+);
+
+const finishPullRefresh = () => {
+  if (!pullRefreshStart) return;
+  const shouldRefresh = pullRefreshStart.ready;
+  pullRefreshStart = null;
+
+  if (shouldRefresh) {
+    triggerPullRefresh();
+    return;
+  }
+
+  resetPullRefresh();
+};
+
+document.addEventListener("touchend", finishPullRefresh, { passive: true });
+document.addEventListener("touchcancel", finishPullRefresh, { passive: true });
 
 const isPageSwipeExcluded = (target) =>
   target.closest(

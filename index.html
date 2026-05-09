@@ -23,10 +23,18 @@
       </svg>
     </button>
 
+    <div class="pull-refresh" data-pull-refresh aria-hidden="true">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 12a8 8 0 1 1-2.3-5.7" />
+        <path d="M20 4v5h-5" />
+      </svg>
+      <span data-pull-refresh-text>Pull to refresh</span>
+    </div>
+
     <div class="page-track" data-page-track>
       <header class="hero" id="about">
       <nav class="section-nav" aria-label="Portfolio sections">
-        <a class="is-active" href="#about" data-section-link data-short="About">
+        <a class="is-active" href="#about" data-section-link data-short="About" aria-current="page">
           <span class="section-nav-icon">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8a7 7 0 0 1 14 0" /></svg>
           </span>
@@ -846,10 +854,16 @@
     <div class="image-modal" data-image-modal hidden>
       <button class="modal-backdrop" type="button" data-modal-close aria-label="Close preview"></button>
       <figure class="modal-content">
-        <button class="modal-close" type="button" data-modal-close aria-label="Close preview">x</button>
-        <button class="modal-nav modal-prev" type="button" data-modal-prev aria-label="Previous preview">Prev</button>
+        <button class="modal-close" type="button" data-modal-close aria-label="Close preview">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+        </button>
+        <button class="modal-nav modal-prev" type="button" data-modal-prev aria-label="Previous preview">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 5 8.5 12l7 7" /></svg>
+        </button>
         <img data-modal-target alt="" />
-        <button class="modal-nav modal-next" type="button" data-modal-next aria-label="Next preview">Next</button>
+        <button class="modal-nav modal-next" type="button" data-modal-next aria-label="Next preview">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 5 7 7-7 7" /></svg>
+        </button>
         <figcaption data-modal-title></figcaption>
       </figure>
     </div>
