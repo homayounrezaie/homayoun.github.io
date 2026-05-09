@@ -277,14 +277,12 @@ summary {
   will-change: transform;
 }
 
-.section-nav svg {
-  width: 15.5px;
-  height: 15.5px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.section-nav-num {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .section-nav a > span:last-child {
@@ -1846,10 +1844,7 @@ main > .section::-webkit-scrollbar {
     will-change: transform;
   }
 
-  .section-nav svg {
-    width: 20px;
-    height: 20px;
-  }
+
 
   .hero-inner {
     width: 100%;
@@ -2258,10 +2253,7 @@ main > .section::-webkit-scrollbar {
     height: 28px;
   }
 
-  .section-nav svg {
-    width: 14px;
-    height: 14px;
-  }
+
 
   .hero {
     padding: calc(56px + env(safe-area-inset-top)) 20px calc(96px + env(safe-area-inset-bottom));
