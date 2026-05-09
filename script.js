@@ -37,7 +37,6 @@ document.addEventListener(
 
 const modal = document.querySelector("[data-image-modal]");
 const modalImage = document.querySelector("[data-modal-target]");
-const modalTitle = document.querySelector("[data-modal-title]");
 const modalButtons = Array.from(document.querySelectorAll("[data-modal-image]"));
 const closeButtons = document.querySelectorAll("[data-modal-close]");
 const modalPrev = document.querySelector("[data-modal-prev]");
@@ -110,25 +109,23 @@ const addSwipeNavigation = (element, onPrevious, onNext) => {
 };
 
 const setModalImage = (button) => {
-  if (!modal || !modalImage || !modalTitle || !button) return;
+  if (!modal || !modalImage || !button) return;
   const src = button.getAttribute("data-modal-image");
   const caption = button.getAttribute("data-modal-caption") || "Project preview";
 
   if (!src) return;
   modalImage.src = src;
   modalImage.alt = caption;
-  modalTitle.textContent = caption;
   modal.hidden = false;
   document.body.classList.add("has-open-modal");
 };
 
 const closeModal = () => {
-  if (!modal || !modalImage || !modalTitle) return;
+  if (!modal || !modalImage) return;
   const wasOpen = !modal.hidden;
   modal.hidden = true;
   modalImage.removeAttribute("src");
   modalImage.alt = "";
-  modalTitle.textContent = "";
   document.body.classList.remove("has-open-modal");
   if (wasOpen) lastModalTrigger?.focus({ preventScroll: true });
 };
@@ -283,6 +280,11 @@ const scrollToPage = (section, behavior = "smooth") => {
   if (!section) return;
 
   if (mobilePageQuery.matches && pageTrack) {
+    if (behavior === "auto" || behavior === "instant") {
+      pageTrack.scrollLeft = section.offsetLeft;
+      return;
+    }
+
     pageTrack.scrollTo({ left: section.offsetLeft, behavior });
     return;
   }
