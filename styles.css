@@ -2050,6 +2050,7 @@ main > .section::-webkit-scrollbar {
   .slider-controls > button {
     width: 42px;
     height: 42px;
+    touch-action: none;
   }
 
   .slider-dots {
