@@ -743,56 +743,46 @@
       <section class="section" id="toolbox" aria-labelledby="toolbox-title">
         <h2 id="toolbox-title">How I Build GeoAI Systems</h2>
         <p class="section-intro">
-          I think about GeoAI as the full lifecycle of data: planning the
-          question, collecting the right observations, organizing formats and
-          databases, analyzing signals, doing calibration/validation, evaluating
-          models, deploying on cloud infrastructure, and monitoring model drift
-          once the system is in production. Tools like cloud computing,
-          spatial databases, Claude AI, and Codex matter, but they are only
-          useful when the workflow is clear. When you understand the steps,
-          finding the right tools becomes the easiest part. I am also
-          increasingly interested in going deeper into system design and
-          scalable architecture for GeoAI products.
+          I think about GeoAI as the full data lifecycle &mdash; capturing data,
+          processing it, storing it, training models, deploying them, and
+          watching how they behave in production. Tools matter, but only when
+          the workflow is clear. Once the steps are clear, picking the right
+          tools is the easy part.
         </p>
         <div class="workflow-diagram" aria-label="GeoAI project lifecycle diagram">
           <div class="workflow-node">
             <span>01</span>
-            <h3>Plan</h3>
-            <p>Frame the question, users, constraints, data needs, and success metrics.</p>
+            <h3>Data</h3>
+            <p>Collect across drone, aircraft, satellite, ISS, thermal, LiDAR, hyperspectral, RGB, and 3D sources.</p>
           </div>
           <div class="workflow-node">
             <span>02</span>
-            <h3>Collect</h3>
-            <p>Gather drone, airborne, satellite, thermal, LiDAR, and hyperspectral data.</p>
+            <h3>Processing</h3>
+            <p>Clean, calibrate, georeference, mosaic, reconstruct, and turn raw observations into usable layers.</p>
           </div>
           <div class="workflow-node">
             <span>03</span>
-            <h3>Organize</h3>
-            <p>Structure formats, CRS, metadata, spatial databases, and cloud storage.</p>
+            <h3>Storage</h3>
+            <p>Store imagery, labels, metadata, and derived layers for fast queries and reproducible experiments.</p>
           </div>
           <div class="workflow-node">
             <span>04</span>
-            <h3>Analyze</h3>
-            <p>Extract signals, validate geospatial accuracy, and run calibration workflows.</p>
+            <h3>Training &amp; Testing</h3>
+            <p>Train, fine-tune, distill, benchmark, and evaluate geospatial models against real-world edge cases.</p>
           </div>
           <div class="workflow-node">
             <span>05</span>
-            <h3>Model</h3>
-            <p>Use foundation models, physics-informed ML, RAG, and evaluation benchmarks.</p>
+            <h3>Deployment</h3>
+            <p>Move models out of notebooks with containers, APIs, CI/CD, and cloud infrastructure.</p>
           </div>
           <div class="workflow-node">
             <span>06</span>
-            <h3>Deploy</h3>
-            <p>Ship APIs, pipelines, cloud services, interfaces, and production analytics.</p>
-          </div>
-          <div class="workflow-node">
-            <span>07</span>
-            <h3>Monitor</h3>
-            <p>Track drift, cost, latency, model quality, and real-world decision value.</p>
+            <h3>Monitoring</h3>
+            <p>Watch drift, failures, latency, cost, and data shifts, then retrain when the world changes.</p>
           </div>
           <div class="workflow-core">
             <strong>GeoAI system design</strong>
-            <span>Data lifecycle + scalable architecture + production delivery</span>
+            <span>Physical-world data + ML systems + production operations</span>
           </div>
         </div>
         <div class="toolbox-grid">
@@ -804,8 +794,9 @@
                 <path d="M4 12v5c0 1.7 3.6 3 8 3s8-1.3 8-3v-5" />
               </svg>
             </span>
-            <h3>Data &amp; Sensing</h3>
-            <p>Start with physical-world data across platforms (airborne, drone, and satellite imagery), sensors (midwave and longwave thermal, LiDAR, and hyperspectral), and 3D sources (point clouds and reconstructed 3D data). Work across STAC, COG, GeoParquet, NetCDF, Zarr, GeoTIFF, GeoJSON, Shapefile, and LAS/LAZ point clouds.</p>
+            <h3>1. Data</h3>
+            <p>Collecting data across platforms (drone, aircraft, satellite, ISS) and sensors (midwave + longwave thermal, LiDAR, hyperspectral, RGB), plus 3D data like point clouds and reconstructed meshes. I also fly drones and collect data myself.</p>
+            <p><strong>Stack:</strong> STAC, COG, GeoPackage, GeoParquet, NetCDF, Zarr, GeoTIFF, GeoJSON, Shapefile, LAS/LAZ, EXIF/XMP metadata, OGC API.</p>
           </article>
           <article>
             <span class="toolbox-icon" aria-hidden="true">
@@ -817,8 +808,24 @@
                 <path d="M13 14h4" />
               </svg>
             </span>
-            <h3>Processing &amp; Analysis</h3>
-            <p>Turn raw geospatial data into reliable analytical layers using Google Earth Engine, PostGIS, GDAL, PDAL, rasterio, coordinate reference systems, accuracy checks, validation, 3D reconstruction, segmentation, object detection, and change detection.</p>
+            <h3>2. Processing</h3>
+            <p>Cleaning, preprocessing, and mosaicking raw imagery into something usable: radiometric calibration, georeferencing, structure-from-motion, and 3D reconstruction such as orthomosaics, meshes, and Gaussian splats.</p>
+            <p><strong>Stack:</strong> GDAL, PDAL, rasterio, GeoPandas, NumPy, OpenCV, COLMAP, OpenDroneMap, Pix4D, QGIS, ArcGIS suite, Google Earth Engine.</p>
+          </article>
+          <article>
+            <span class="toolbox-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <rect x="4" y="5" width="16" height="14" rx="2" />
+                <path d="M8 9h8" />
+                <path d="M8 13h5" />
+                <path d="M16 13h.01" />
+                <path d="M16 17h.01" />
+                <path d="M8 17h5" />
+              </svg>
+            </span>
+            <h3>3. Storage</h3>
+            <p>Storing imagery, labels, and derived layers in databases and object storage so I can query them fast and version the training sets for reproducible experiments.</p>
+            <p><strong>Stack:</strong> PostGIS, AWS S3, Cloud Optimized GeoTIFF tiling, DVC, Git LFS.</p>
           </article>
           <article>
             <span class="toolbox-icon" aria-hidden="true">
@@ -833,8 +840,9 @@
                 <path d="m10.5 16.3-2.8-3.1" />
               </svg>
             </span>
-            <h3>Modeling &amp; Intelligence</h3>
-            <p>Build the intelligence layer with vision-language models, transformers, autoencoders, knowledge distillation, geospatial foundation-model fine-tuning, multimodal RAG, physics-informed ML, time-series + spatial modeling, and evaluation benchmarks.</p>
+            <h3>4. ML/DL Training &amp; Testing</h3>
+            <p>Picking model architectures, training them, and evaluating results. I work with vision-language models, transformers, autoencoders, knowledge distillation, geospatial foundation-model fine-tuning, multimodal RAG, physics-informed ML, and time-series + spatial modeling.</p>
+            <p><strong>Stack:</strong> PyTorch, scikit-learn, Hugging Face, MLflow, Weights &amp; Biases, CUDA / multi-GPU, Jupyter, Python (venv / conda), Git, GitHub.</p>
           </article>
           <article>
             <span class="toolbox-icon" aria-hidden="true">
@@ -844,8 +852,23 @@
                 <path d="m9 12 3-3 3 3" />
               </svg>
             </span>
-            <h3>Production &amp; Product</h3>
-            <p>Move models into usable systems with Python, PyTorch, NumPy, SciPy, scikit-learn, pandas, R, SQL, Git, Linux, Docker, AWS, S3, SageMaker, Hugging Face, data pipelines, APIs, model evaluation, cost-aware inference, UI/UX thinking, and production-minded delivery.</p>
+            <h3>5. Deployment &amp; Operations</h3>
+            <p>Getting models out of notebooks and into production: packaging them in containers, setting up CI/CD, and exposing them as APIs other teams can call.</p>
+            <p><strong>Stack:</strong> Docker, Kubernetes, FastAPI, TorchServe / Triton, AWS (SageMaker, Lambda, ECS, ECR), Terraform, GitHub Actions.</p>
+          </article>
+          <article>
+            <span class="toolbox-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 19V5" />
+                <path d="M4 19h16" />
+                <path d="m7 15 3-3 3 2 5-7" />
+                <path d="M18 7h-4" />
+                <path d="M18 7v4" />
+              </svg>
+            </span>
+            <h3>6. Monitoring &amp; Improvements</h3>
+            <p>Watching how models perform once they're live, catching drift and edge cases, and retraining when the data shifts.</p>
+            <p><strong>Stack:</strong> Evidently, Arize, CloudWatch, Sentry, scheduled retraining pipelines.</p>
           </article>
         </div>
         <article class="research-lens" id="research-lens" aria-labelledby="research-lens-title">

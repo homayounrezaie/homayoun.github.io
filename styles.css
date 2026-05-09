@@ -684,31 +684,61 @@ summary {
 }
 
 .project-slider {
+  position: relative;
   display: grid;
-  gap: 12px;
+  gap: 0;
+  isolation: isolate;
 }
 
 .slider-track {
   position: relative;
   min-height: 420px;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--bg), transparent 6%);
+}
+
+.slider-track::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  height: 96px;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--bg), transparent 18%),
+    color-mix(in srgb, var(--bg), transparent 62%) 46%,
+    transparent
+  );
+  pointer-events: none;
 }
 
 .slider-track figure {
-  position: relative;
+  position: absolute;
+  inset: 0;
   height: 100%;
-  min-height: 420px;
+  min-height: 0;
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--glass-line);
-  border-radius: 18px;
+  border-radius: 14px;
   background: color-mix(in srgb, var(--glass), transparent 10%);
-  display: none;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(12px) scale(0.985);
+  transition: opacity 220ms ease, transform 260ms ease, visibility 220ms ease;
+  visibility: hidden;
+  will-change: opacity, transform;
 }
 
 .project-geointerpo .slider-track figure {
   border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.project-geointerpo .slider-track {
   border-radius: 0;
   background: transparent;
 }
@@ -727,7 +757,11 @@ summary {
 }
 
 .slider-track figure.is-active {
-  display: block;
+  z-index: 1;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0) scale(1);
+  visibility: visible;
 }
 
 .project-static-preview {
@@ -761,18 +795,31 @@ summary {
 }
 
 .slider-controls {
-  width: fit-content;
-  display: inline-flex;
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  z-index: 3;
+  width: min(92%, 430px);
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
   align-items: center;
-  justify-content: center;
-  gap: 4px;
-  justify-self: center;
-  border: 1px solid var(--glass-line);
-  border-radius: 999px;
-  background: linear-gradient(145deg, var(--glass-strong), var(--glass));
-  box-shadow: 0 14px 36px color-mix(in srgb, var(--text), transparent 90%);
-  backdrop-filter: blur(16px) saturate(145%);
-  padding: 5px 7px;
+  gap: 8px;
+  justify-self: auto;
+  padding: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+@media (hover: hover) {
+  .slider-controls {
+    opacity: 0.88;
+    transition: opacity 160ms ease, transform 180ms ease;
+  }
+
+  .project-slider:hover .slider-controls,
+  .project-slider:focus-within .slider-controls {
+    opacity: 1;
+  }
 }
 
 .slider-controls > button {
@@ -780,19 +827,25 @@ summary {
   width: 44px;
   height: 44px;
   place-items: center;
-  border: 0;
+  border: 1px solid color-mix(in srgb, var(--glass-line), var(--text) 8%);
   border-radius: 999px;
-  background: transparent;
+  background: color-mix(in srgb, var(--bg), transparent 10%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #ffffff, transparent 74%),
+    0 12px 28px color-mix(in srgb, var(--text), transparent 86%);
+  backdrop-filter: blur(18px) saturate(150%);
   color: var(--text);
   padding: 0;
   cursor: pointer;
-  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+  pointer-events: auto;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
 }
 
 .slider-controls > button:hover {
-  background: color-mix(in srgb, var(--accent-soft), transparent 18%);
-  color: var(--accent);
-  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--nav-active), transparent 32%);
+  background: color-mix(in srgb, var(--nav-active), transparent 84%);
+  color: var(--nav-active);
+  transform: translateY(-2px);
 }
 
 .slider-controls > button:active {
@@ -800,25 +853,36 @@ summary {
 }
 
 .slider-controls svg {
-  width: 19px;
-  height: 19px;
+  width: 18px;
+  height: 18px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 2.2;
+  stroke-width: 2.35;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
 .slider-dots {
-  display: flex;
+  display: grid;
+  grid-auto-columns: minmax(18px, 1fr);
+  grid-auto-flow: column;
   align-items: center;
-  gap: 0;
+  gap: 6px;
   min-height: 44px;
+  border: 1px solid color-mix(in srgb, var(--glass-line), var(--text) 8%);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg), transparent 12%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #ffffff, transparent 76%),
+    0 12px 28px color-mix(in srgb, var(--text), transparent 88%);
+  backdrop-filter: blur(18px) saturate(150%);
+  padding: 0 12px;
+  pointer-events: auto;
 }
 
 .slider-dots button {
   position: relative;
-  width: 24px;
+  width: 100%;
   height: 44px;
   padding: 0;
   border: 0;
@@ -833,21 +897,22 @@ summary {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 7px;
-  height: 7px;
+  width: 100%;
+  height: 3px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--muted), transparent 40%);
+  background: color-mix(in srgb, var(--text), transparent 78%);
   transform: translate(-50%, -50%);
-  transition: width 160ms ease, background 160ms ease, opacity 160ms ease;
+  transition: background 180ms ease, opacity 180ms ease, transform 180ms ease;
 }
 
 .slider-dots button.is-active {
-  width: 34px;
+  width: 100%;
 }
 
 .slider-dots button.is-active::after {
-  width: 24px;
-  background: var(--accent);
+  background: var(--nav-active);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--nav-active), transparent 54%);
+  transform: translate(-50%, -50%) scaleY(1.45);
 }
 
 .media-button {
@@ -1245,6 +1310,14 @@ summary {
   --card-accent: #22c55e;
 }
 
+.toolbox-grid article:nth-child(5) {
+  --card-accent: #f59e0b;
+}
+
+.toolbox-grid article:nth-child(6) {
+  --card-accent: #14b8a6;
+}
+
 .toolbox-grid article::after {
   content: "";
   position: absolute;
@@ -1304,6 +1377,15 @@ summary {
   max-width: 95%;
   font-size: 0.92rem;
   line-height: 1.62;
+}
+
+.toolbox-grid p + p {
+  margin-top: 12px;
+}
+
+.toolbox-grid strong {
+  color: var(--text);
+  font-weight: 760;
 }
 
 .thermal-note {
@@ -2063,12 +2145,25 @@ summary {
   }
 
   .slider-controls {
-    padding: 4px 6px;
+    bottom: 10px;
+    width: calc(100% - 20px);
+    gap: 6px;
+    padding: 0;
   }
 
   .slider-controls > button {
     width: 44px;
     height: 44px;
+  }
+
+  .slider-dots {
+    gap: 5px;
+    min-height: 42px;
+    padding: 0 10px;
+  }
+
+  .slider-dots button {
+    height: 42px;
   }
 
   .slider-track figcaption,
@@ -2222,6 +2317,26 @@ summary {
   .slider-track,
   .slider-track figure {
     min-height: 190px;
+  }
+
+  .slider-controls {
+    bottom: 8px;
+    width: calc(100% - 18px);
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
+  }
+
+  .slider-controls > button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .slider-dots {
+    min-height: 40px;
+    padding: 0 9px;
+  }
+
+  .slider-dots button {
+    height: 40px;
   }
 
   .project-visual {
