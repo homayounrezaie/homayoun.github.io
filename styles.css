@@ -314,38 +314,17 @@ summary {
 }
 
 .page-track {
-  display: flex;
-  height: 100svh;
-  overflow-x: auto;
-  overflow-y: hidden;
-  overscroll-behavior-x: contain;
-  scroll-behavior: auto;
-  scroll-padding-inline: 0;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.page-track::-webkit-scrollbar {
-  display: none;
+  display: block;
 }
 
 .page-track main {
-  display: contents;
+  display: block;
 }
 
 .hero {
-  flex: 0 0 100vw;
-  height: 100svh;
-  min-height: 100svh;
-  overflow-y: auto;
-  overscroll-behavior-y: contain;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
   display: flex;
   align-items: center;
+  min-height: 100svh;
   padding: clamp(42px, 7vh, 72px) clamp(40px, 7vw, 86px) clamp(42px, 7vh, 72px) clamp(150px, 14vw, 220px);
 }
 
@@ -561,20 +540,10 @@ main > .section::-webkit-scrollbar {
 
 .section {
   position: relative;
-  flex: 0 0 100vw;
-  width: auto;
-  height: 100svh;
-  margin: 0;
-  overflow-y: auto;
-  overscroll-behavior-y: contain;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
   padding: clamp(46px, 7vh, 74px) clamp(44px, 7vw, 88px) clamp(44px, 7vh, 72px) clamp(150px, 14vw, 220px);
   scroll-margin-top: 18px;
   content-visibility: auto;
-  contain-intrinsic-size: auto 100svh;
+  contain-intrinsic-size: auto 600px;
 }
 
 .hero:focus,
