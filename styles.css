@@ -1851,18 +1851,37 @@ main > .section::-webkit-scrollbar {
   }
 
   .section-nav-dot {
+    position: relative;
     display: block;
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
     border-radius: 999px;
-    background: color-mix(in srgb, var(--text), transparent 70%);
-    transition: background 220ms ease, transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), width 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    background: color-mix(in srgb, var(--text), transparent 68%);
+    transition: background 220ms ease, transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    flex-shrink: 0;
+  }
+
+  .section-nav a:not(:last-child) .section-nav-dot::after {
+    content: "";
+    position: absolute;
+    left: calc(100% + 2px);
+    top: 50%;
+    width: calc((100vw / 7) - 12px);
+    height: 1.5px;
+    background: repeating-linear-gradient(
+      to right,
+      color-mix(in srgb, var(--text), transparent 60%) 0px,
+      color-mix(in srgb, var(--text), transparent 60%) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+    transform: translateY(-50%);
   }
 
   .section-nav a.is-active .section-nav-dot {
     background: #f97316;
-    transform: scale(1.5);
-    box-shadow: 0 0 8px color-mix(in srgb, #f97316, transparent 40%);
+    transform: scale(2.2);
+    box-shadow: 0 0 10px color-mix(in srgb, #f97316, transparent 35%);
   }
 
 
